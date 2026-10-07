@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - Dr Cédric SYLLEBRANQUE | Expert IA & Computer Vision</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Font Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #cbd5e1;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Background Canvas interactif */
+        #tech-bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .content-container {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* -------------------------------------------------------------
+           THÈME SOMBRE (DEFAULT)
+        ------------------------------------------------------------- */
+        .glass-card {
+            background: rgba(30, 41, 59, 0.72);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 1rem;
+            transition: all 0.25s ease-in-out;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(56, 189, 248, 0.35);
+            box-shadow: 0 10px 30px -10px rgba(14, 165, 233, 0.18);
+        }
+
+        .skill-badge {
+            transition: all 0.2s ease;
+            cursor: pointer;
+            background-color: rgba(51, 65, 85, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #e2e8f0;
+        }
+
+        .skill-badge:hover {
+            transform: translateY(-2px);
+            background-color: rgba(56, 189, 248, 0.25);
+            border-color: rgba(56, 189, 248, 0.4);
+            color: #ffffff;
+        }
+
+        .skill-badge.active-filter {
+            background-color: #0284c7 !important;
+            color: #ffffff !important;
+            border-color: #38bdf8 !important;
+            box-shadow: 0 0 12px rgba(56, 189, 248, 0.5);
+        }
+
+        .highlight-card {
+            border-color: #38bdf8 !important;
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.25) !important;
+            transform: scale(1.01);
+        }
+
+        .contact-chip {
+            background-color: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #cbd5e1;
+        }
+
+        /* -------------------------------------------------------------
+           THÈME CLAIR (.light-mode)
+        ------------------------------------------------------------- */
+        body.light-mode {
+            background-color: #f8fafc;
+            color: #334155;
+        }
+
+        body.light-mode header {
+            background-color: rgba(255, 255, 255, 0.85) !important;
+            border-color: #e2e8f0 !important;
+        }
+
+        body.light-mode header .text-white {
+            color: #0f172a !important;
+        }
+
+        body.light-mode .glass-card {
+            background: rgba(255, 255, 255, 0.88);
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+        }
+
+        body.light-mode .glass-card:hover {
+            border-color: #38bdf8;
+            box-shadow: 0 10px 25px -5px rgba(14, 165, 233, 0.12);
+        }
+
+        body.light-mode .text-white {
+            color: #0f172a !important;
+        }
+
+        body.light-mode .text-slate-200,
+        body.light-mode .text-slate-300 {
+            color: #334155 !important;
+        }
+
+        body.light-mode .text-slate-400 {
+            color: #64748b !important;
+        }
+
+        body.light-mode .text-sky-300,
+        body.light-mode .text-sky-400 {
+            color: #0284c7 !important;
+        }
+
+        body.light-mode .border-slate-700\/60,
+        body.light-mode .border-slate-700\/50,
+        body.light-mode .border-slate-800 {
+            border-color: #e2e8f0 !important;
+        }
+
+        body.light-mode .bg-slate-800\/40,
+        body.light-mode .bg-slate-800\/80,
+        body.light-mode .bg-slate-800 {
+            background-color: #f1f5f9 !important;
+        }
+
+        body.light-mode .contact-chip {
+            background-color: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            color: #0f172a;
+        }
+
+        body.light-mode .contact-chip:hover {
+            border-color: #0284c7;
+            background-color: #e0f2fe;
+        }
+
+        body.light-mode .skill-badge {
+            background-color: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            color: #1e293b;
+        }
+
+        body.light-mode .skill-badge:hover {
+            background-color: #e0f2fe;
+            border-color: #38bdf8;
+            color: #0284c7;
+        }
+
+        body.light-mode .photo-frame {
+            border-color: #0284c7 !important;
+            box-shadow: 0 10px 20px -5px rgba(2, 132, 199, 0.2) !important;
+        }
+
+        strong {
+            color: #38bdf8;
+            font-weight: 700;
+        }
+
+        body.light-mode strong {
+            color: #0284c7 !important;
+            font-weight: 700;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        body.light-mode ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #38bdf8;
+        }
+
+        /* -------------------------------------------------------------
+           STYLE D'IMPRESSION & EXPORT PDF
+        ------------------------------------------------------------- */
+        @media print {
+            #tech-bg-canvas {
+                display: none !important;
+            }
+
+            @page {
+                size: A4 portrait;
+                margin: 6mm 8mm 6mm 8mm;
+            }
+
+            html, body {
+                background-color: #ffffff !important;
+                color: #0f172a !important;
+                font-size: 10px !important;
+                line-height: 1.35 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            .no-print, nav, header, #toast, button {
+                display: none !important;
+            }
+
+            .grid.grid-cols-1.lg\:grid-cols-12 {
+                display: grid !important;
+                grid-template-columns: 32% 66% !important;
+                gap: 2% !important;
+                width: 100% !important;
+            }
+
+            aside.lg\:col-span-4 {
+                grid-column: span 1 !important;
+                display: block !important;
+            }
+
+            main.lg\:col-span-8 {
+                grid-column: span 1 !important;
+                display: block !important;
+            }
+
+            #profil {
+                background-color: #ffffff !important;
+                border: 1px solid #cbd5e1 !important;
+                border-radius: 12px !important;
+                padding: 14px 18px !important;
+                margin-bottom: 12px !important;
+                box-shadow: none !important;
+            }
+
+            #profil-container {
+                display: flex !important;
+                flex-direction: row !important;
+                align-items: flex-start !important;
+                text-align: left !important;
+                gap: 20px !important;
+            }
+
+            #profil-text {
+                text-align: left !important;
+            }
+
+            #profil h1 {
+                font-size: 22px !important;
+                line-height: 1.1 !important;
+                color: #0f172a !important;
+                font-weight: 900 !important;
+            }
+
+            #profil h1 span {
+                color: #0284c7 !important;
+                font-weight: 900 !important;
+            }
+
+            .contact-chip, #profil a, #profil button, #profil div.contact-chip {
+                background-color: #f1f5f9 !important;
+                border: 1px solid #cbd5e1 !important;
+                color: #0f172a !important;
+                font-weight: 600 !important;
+                box-shadow: none !important;
+                font-size: 10px !important;
+                padding: 4px 8px !important;
+                border-radius: 6px !important;
+            }
+
+            .glass-card {
+                background-color: #ffffff !important;
+                border: 1px solid #e2e8f0 !important;
+                border-radius: 8px !important;
+                box-shadow: none !important;
+                padding: 10px 12px !important;
+                margin-bottom: 8px !important;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+            }
+
+            .data-card {
+                background-color: transparent !important;
+                box-shadow: none !important;
+                padding-left: 12px !important;
+                margin-bottom: 12px !important;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+            }
+
+            .border-l-2.border-sky-400 {
+                border-left: 3px solid #0284c7 !important;
+            }
+
+            .border-l-2.border-slate-600 {
+                border-left: 3px solid #cbd5e1 !important;
+            }
+
+            #formation div[class*="bg-slate-"],
+            #projets div[class*="bg-slate-"] {
+                background-color: #f8fafc !important;
+                border: 1px solid #cbd5e1 !important;
+                border-radius: 8px !important;
+            }
+
+            .skill-badge {
+                background-color: #f1f5f9 !important;
+                color: #0f172a !important;
+                border: 1px solid #cbd5e1 !important;
+                font-size: 9px !important;
+                padding: 2px 6px !important;
+                font-weight: 600 !important;
+                border-radius: 4px !important;
+            }
+
+            span.bg-sky-500\/10, 
+            div.contact-chip,
+            span[class*="bg-sky-"] {
+                background-color: #e0f2fe !important;
+                color: #0284c7 !important;
+                border: 1px solid #bae6fd !important;
+                padding: 2px 8px !important;
+                border-radius: 12px !important;
+            }
+
+            strong {
+                color: #0284c7 !important;
+                font-weight: 800 !important;
+            }
+
+            span.bg-slate-800, 
+            span[class*="bg-slate-"] {
+                background-color: #f1f5f9 !important;
+                color: #475569 !important;
+                border: 1px solid #cbd5e1 !important;
+                padding: 2px 8px !important;
+                border-radius: 12px !important;
+            }
+
+            h2 {
+                font-size: 12px !important;
+                font-weight: 800 !important;
+                color: #0284c7 !important;
+                border-bottom: 1px solid #e2e8f0 !important;
+                padding-bottom: 3px !important;
+                margin-bottom: 8px !important;
+                text-transform: uppercase !important;
+                letter-spacing: 0.05em !important;
+            }
+
+            h3, .text-white, .text-slate-200, .text-slate-100 {
+                font-size: 11px !important;
+                font-weight: 700 !important;
+                color: #0f172a !important;
+            }
+
+            p, li, span, div, .text-slate-300, .text-slate-400 {
+                color: #334155 !important;
+            }
+
+            .text-sky-400, .text-sky-300 {
+                color: #0284c7 !important;
+            }
+
+            .grid-cols-1.md\:grid-cols-2 {
+                display: grid !important;
+                grid-template-columns: repeat(2, 1fr) !important;
+                gap: 8px !important;
+            }
+
+            .photo-frame {
+                width: 72px !important;
+                height: 72px !important;
+                border: 2px solid #0284c7 !important;
+                border-radius: 12px !important;
+            }
+
+            .avoid-break {
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+            }
+
+            a {
+                color: #0284c7 !important;
+                text-decoration: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen text-slate-300 selection:bg-sky-500 selection:text-white">
+
+    <!-- Canvas Arrière-Plan Interactif -->
+    <canvas id="tech-bg-canvas"></canvas>
+
+    <div class="content-container">
+        <!-- Navigation Bar Web (Invisible à l'impression) -->
+        <header class="sticky top-0 z-40 bg-slate-950/80 backdrop-blur-md border-b border-slate-800/80 no-print transition-colors duration-300">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-9 h-9 rounded-lg bg-sky-500/20 border border-sky-500/40 flex items-center justify-center text-sky-400 font-bold text-lg">
+                        CS
+                    </div>
+                    <div>
+                        <div class="text-white font-bold text-sm leading-tight">Dr. Cédric SYLLEBRANQUE</div>
+                        <div class="text-xs text-sky-400" data-fr="Expert IA, Computer Vision, VR/AR & DevOps" data-en="AI, Computer Vision, VR/AR & DevOps Expert">Expert IA, Computer Vision, VR/AR & DevOps</div>
+                    </div>
+                </div>
+
+                <!-- Actions Header (Sélecteur de Langue, Thème & Bouton PDF) -->
+                <div class="flex items-center space-x-2 sm:space-x-3">
+                    <!-- Bouton Bascule Langue FR / EN avec surbrillance -->
+                    <button id="lang-toggle" onclick="toggleLanguage()" class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold transition flex items-center gap-2 shadow active:scale-95" title="Changer de langue / Switch language">
+                        <i class="fa-solid fa-globe text-sky-400"></i>
+                        <div class="flex items-center gap-1 font-mono">
+                            <span id="lang-fr" class="px-1.5 py-0.5 rounded text-[11px] transition-all bg-sky-500 text-slate-950 font-black shadow-sm">FR</span>
+                            <span class="text-slate-500 font-normal">|</span>
+                            <span id="lang-en" class="px-1.5 py-0.5 rounded text-[11px] transition-all text-slate-400 font-medium hover:text-slate-200">EN</span>
+                        </div>
+                    </button>
+
+                    <!-- Bouton Bascule Thème Clair / Sombre -->
+                    <button id="theme-toggle" onclick="toggleTheme()" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-semibold transition flex items-center gap-2 shadow active:scale-95">
+                        <i id="theme-icon" class="fa-solid fa-sun text-amber-400"></i>
+                        <span id="theme-text" class="hidden sm:inline" data-fr="Mode Clair" data-en="Light Mode">Mode Clair</span>
+                    </button>
+
+                    <!-- Bouton d'action Téléchargement / Impression PDF -->
+                    <button onclick="exportPDF()" class="px-3.5 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs transition flex items-center gap-2 shadow-lg shadow-sky-500/20 active:scale-95">
+                        <i class="fa-solid fa-file-pdf text-sm"></i>
+                        <span data-fr="Télécharger / Imprimer PDF" data-en="Download / Print PDF">Télécharger / Imprimer PDF</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+
+            <!-- HEADER PROFIL -->
+            <section id="profil" class="glass-card p-6 sm:p-8 relative overflow-hidden">
+                <div class="absolute -right-20 -top-20 w-80 h-80 bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                
+                <div id="profil-container" class="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8 relative z-10 text-center md:text-left">
+                    <!-- Photo du candidat -->
+                    <div class="relative shrink-0">
+                        <div class="photo-frame w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden border-2 border-sky-400/50 shadow-xl shadow-sky-950/50 bg-slate-800">
+                            <img id="profile-img" src="csy.png" alt="Dr Cédric SYLLEBRANQUE" class="w-full h-full object-cover object-center" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'w-full h-full flex items-center justify-center bg-slate-800 text-sky-400 font-bold text-3xl\'>CS</div>';">
+                        </div>
+                        <div class="absolute -bottom-2 -right-2 px-2.5 py-0.5 rounded-md bg-sky-500 text-slate-950 font-black text-[10px] uppercase tracking-wider shadow">
+                            PhD
+                        </div>
+                    </div>
+
+                    <!-- Infos Profil -->
+                    <div id="profil-text" class="flex-1 space-y-2">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/20 text-sky-400 text-xs font-semibold uppercase tracking-wider" data-fr='<i class="fa-solid fa-graduation-cap"></i> Docteur en Informatique & Expert R&D' data-en='<i class="fa-solid fa-graduation-cap"></i> Ph.D. in Computer Science & R&D Expert'>
+                            <i class="fa-solid fa-graduation-cap"></i> Docteur en Informatique & Expert R&D
+                        </div>
+                        
+                        <h1 class="text-3xl sm:text-4xl font-black text-white tracking-tight">
+                            Cédric <span class="text-sky-400 font-black">SYLLEBRANQUE</span>
+                        </h1>
+                        
+                        <p class="text-base sm:text-lg font-semibold text-sky-300" data-fr="Expert IA, Computer Vision, VR/AR, DevOps, Rendu / Simulation 3D & Data" data-en="AI, Computer Vision, VR/AR, DevOps, 3D Rendering & Simulation, Data Expert">
+                            Expert IA, Computer Vision, VR/AR, DevOps, Rendu / Simulation 3D & Data
+                        </p>
+
+                        <p class="text-slate-300 text-xs sm:text-sm leading-relaxed max-w-3xl pt-1" data-fr="Docteur en Informatique et Expert R&D avec plus de 15 ans d'expérience au croisement de l'Intelligence Artificielle, de la Computer Vision, de la Réalité Virtuelle / Augmentée (VR/AR), du DevOps / MLOps et du Rendu/Simulation 3D. Spécialiste de la génération de données synthétiques 3D pour l'entraînement de modèles Deep Learning (fine-tuning YOLO) et du pilotage de projets Data & Business Intelligence." data-en="Ph.D. in Computer Science and R&D Expert with over 15 years of experience at the intersection of Artificial Intelligence, Computer Vision, Virtual & Augmented Reality (VR/AR), DevOps / MLOps, and 3D Rendering/Simulation. Specialist in generating 3D synthetic data for Deep Learning model training (YOLO fine-tuning) and steering Data & Business Intelligence projects.">
+                            Docteur en Informatique et Expert R&D avec plus de 15 ans d'expérience au croisement de l'Intelligence Artificielle, de la Computer Vision, de la Réalité Virtuelle / Augmentée (VR/AR), du DevOps / MLOps et du Rendu/Simulation 3D. Spécialiste de la génération de données synthétiques 3D pour l'entraînement de modèles Deep Learning (fine-tuning YOLO) et du pilotage de projets Data & Business Intelligence.
+                        </p>
+
+                        <!-- Coordonnées & Badges de Contact -->
+                        <div class="pt-3 flex flex-wrap justify-center md:justify-start gap-2.5 sm:gap-3 text-xs font-medium">
+                            <div class="contact-chip flex items-center gap-1.5 px-3 py-1.5 rounded-lg">
+                                <i class="fa-solid fa-location-dot text-sky-400"></i>
+                                <span data-fr="Arue, Tahiti, Polynésie Française" data-en="Arue, Tahiti, French Polynesia">Arue, Tahiti, Polynésie Française</span>
+                            </div>
+                            <a href="tel:+68987285777" class="contact-chip flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition">
+                                <i class="fa-solid fa-phone text-sky-400"></i>
+                                <span>+689 87.28.57.77</span>
+                            </a>
+                            <button onclick="copyToClipboard('syllebra@gmail.com', currentLang === 'fr' ? 'Email copié !' : 'Email copied!')" class="contact-chip flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition">
+                                <i class="fa-solid fa-envelope text-sky-400"></i>
+                                <span>syllebra@gmail.com</span>
+                            </button>
+                            <a href="https://github.com/syllebra/dartnet" target="_blank" rel="noopener" class="contact-chip flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition">
+                                <i class="fa-brands fa-github text-sky-400"></i>
+                                <span>syllebra/dartnet</span>
+                            </a>
+                            <a href="https://linkedin.com/in/c%C3%A9dric-syllebranque-64817052" target="_blank" rel="noopener" class="contact-chip flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition">
+                                <i class="fa-brands fa-linkedin text-sky-400"></i>
+                                <span>cedric-syllebranque</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+                <!-- COLONNE GAUCHE (4 Cols) : Compétences, Publications, Langues & Divers -->
+                <aside class="lg:col-span-4 space-y-6">
+
+                    <!-- DOMAINES D'EXPERTISE & SKILLS -->
+                    <section class="glass-card p-5 space-y-4">
+                        <div class="flex items-center justify-between border-b border-slate-700/60 pb-3">
+                            <h2 class="text-base font-bold text-white uppercase tracking-wider flex items-center gap-2">
+                                <i class="fa-solid fa-brain text-sky-400"></i> <span data-fr="Compétences" data-en="Skills">Compétences</span>
+                            </h2>
+                            <span class="text-[10px] text-slate-400 no-print" data-fr="Cliquer pour filtrer" data-en="Click to filter">Cliquer pour filtrer</span>
+                        </div>
+
+                        <!-- Vision par Ordinateur & IA -->
+                        <div class="space-y-2">
+                            <div class="text-xs font-semibold text-sky-400 uppercase tracking-wide" data-fr="Vision par Ordinateur & IA" data-en="Computer Vision & AI">Vision par Ordinateur & IA</div>
+                            <div class="flex flex-wrap gap-1.5">
+                                <span onclick="filterSkill('YOLO')" class="skill-badge px-2.5 py-1 rounded-md text-xs font-medium">YOLO</span>
+                                <span onclick="filterSkill('OpenCV')" class="skill-badge px-2.5 py-1 rounded-md text-xs font-medium">OpenCV</span>
+                                <span onclick="filterSkill('PCL')" class="skill-badge px-2.5 py-1 rounded-md text-xs font-medium">PCL (PointCloud)</span>
+                                <span onclick="filterSkill('PyTorch')" class="skill-badge px-2.5 py-1 rounded-md text-xs font-medium">PyTorch</span>
+                                <span onclick="filterSkill('TensorFlow')" class="skill-badge px-2.5 py-1 rounded-md text-xs font-medium">TensorFlow</span>
+                                <span onclick="filterSkill('OCR')" class="skill-badge px-2.5 py-1 rounded-md text-xs font-medium">OCR</span>
+                                <span onclick="filterSkill('Traitement')" class="skill-badge px-2.5 py-1 rounded-md text-xs font-medium" data-fr="Temps réel" data-en="Real-Time Processing">Temps réel</span>
+                                <span onclick="filterSkill('Synthétiques')" class="skill-badge px-2.5 py-1 rounded-md text-xs font-medium" data-fr="Données Synthétiques 3D" data-en="3D Synthetic Data">Données Synthétiques 3D</span>
+                            </div>
+                        </div>
+
+                        <!-- 3D, Rendu & Simulation -->
+                        <div class="space-y-2 pt-2 border-t border-slate-700/50">
+                            <div class="text-xs font-semibold text-sky-400 uppercase tracking-wide" data-fr="Graphisme 3D, Rendu & Simulation" data-en="3D Graphics, Rendering & Simulation">Graphisme 3D, Rendu & Simulation</div>
+                            <div class="flex flex-wrap gap-1.5">
+                                <span onclick="filterSkill('Unity3D')" class="skill-badge px-2.5 py-1 rounded-md text-xs font-medium">Unity3D</span>
+                                <span onclick="filterSkill('Réalité Augmentée')" class="skill-badge px-2.5 py-1 rounded-md text-xs font-medium" data-fr="Réalité Virtuelle & Augmentée (VR/AR)" data-en="Virtual & Augmented Reality (VR/AR)">VR / AR</span>
+                                <span onclick="filterSkill('OpenGL')" class="skill-badge px-2.5 py-1 rounded-md text-xs font-medium">OpenGL</span>
+                                <span onclick="filterSkill('Three.js')" class="skill-badge px-2.5 py-1 rounded-md text-xs font-medium">Three.js / WebGL</span>
+                                <span onclick="filterSkill('3D Studio Max')" class="skill-badge px-2.5 py-1 rounded-md text-xs font-medium">3DS Max</span>
+                                <span onclick="filterSkill('ZBrush')" class="skill-badge px-2.5 py-1 rounded-md text-xs font-medium">ZBrush</span>
+                                <span onclick="filterSkill('volumique')" class="skill-badge px-2.5 py-1 rounded-md text-xs font-medium" data-fr="Rendu volumique GPU" data-en="GPU Volume Rendering">Rendu volumique GPU</span>
+                            </div>
+                        </div>
+
+                        <!-- Langages & Frameworks -->
+                        <div class="space-y-2 pt-2 border-t border-slate-700/50">
+                            <div class="text-xs font-semibold text-sky-400 uppercase tracking-wide" data-fr="Langages & Frameworks" data-en="Languages & Frameworks">Langages & Frameworks</div>
+                            <div class="flex flex-wrap gap-1.5">
+                                <span onclick="filterSkill('C++')" class="skill-badge px-2.5 py-1 rounded-md text-xs font-medium">C++</span>
+                                <span onclick="filterSkill('C#')" class="skill-badge px-2.5 py-1 rounded-md text-xs font-medium">C#</span>
+                                <span onclick="filterSkill('Python')" class="skill-badge px-2.5 py-1 rounded-md text-xs font-medium">Python</span>
+                                <span onclick="filterSkill('C')" class="skill-badge px-2.5 py-1 rounded-md text-xs font-medium">C</span>
+                                <span onclick="filterSkill('Matlab')" class="skill-badge px-2.5 py-1 rounded-md text-xs font-medium">Matlab</span>
+                                <span onclick="filterSkill('Qt')" class="skill-badge px-2.5 py-1 rounded-md text-xs font-medium">Qt</span>
+                            </div>
+                        </div>
+
+                        <!-- Data, BI & DevOps -->
+                        <div class="space-y-2 pt-2 border-t border-slate-700/50">
+                            <div class="text-xs font-semibold text-sky-400 uppercase tracking-wide" data-fr="Data, BI & DevOps" data-en="Data, BI & MLOps">Data, BI & DevOps</div>
+                            <div class="flex flex-wrap gap-1.5">
+                                <span onclick="filterSkill('Gouvernance')" class="skill-badge px-2.5 py-1 rounded-md text-xs font-medium" data-fr="Gouvernance Data" data-en="Data Governance">Gouvernance Data</span>
+                                <span onclick="filterSkill('Business Intelligence')" class="skill-badge px-2.5 py-1 rounded-md text-xs font-medium">Business Intelligence</span>
+                                <span onclick="filterSkill('MLOps')" class="skill-badge px-2.5 py-1 rounded-md text-xs font-medium">MLOps</span>
+                                <span onclick="filterSkill('CI/CD')" class="skill-badge px-2.5 py-1 rounded-md text-xs font-medium">CI/CD</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- PUBLICATIONS SCIENTIFIQUES -->
+                    <section class="glass-card p-5 space-y-3">
+                        <h2 class="text-base font-bold text-white uppercase tracking-wider border-b border-slate-700/60 pb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-book-bookmark text-sky-400"></i> <span data-fr="Publications" data-en="Publications">Publications</span>
+                        </h2>
+
+                        <div class="space-y-3 text-xs">
+                            <div class="avoid-break">
+                                <div class="font-bold text-slate-200">Biomedical Simulation (2010)</div>
+                                <div class="text-slate-300 italic">"Six Degree-of-Freedom Haptic Rendering for Dental Implantology Simulation"</div>
+                                <div class="text-[10px] text-sky-400 font-mono mt-0.5">Springer, Vol. 5958, pp. 139-149</div>
+                            </div>
+
+                            <div class="avoid-break pt-2 border-t border-slate-700/50">
+                                <div class="font-bold text-slate-200">The Visual Computer (2008)</div>
+                                <div class="text-slate-300 italic">"Estimation of mechanical parameters of deformable solids from videos"</div>
+                                <div class="text-[10px] text-sky-400 font-mono mt-0.5">Springer, Vol. 24, n° 11, pp. 963-972</div>
+                            </div>
+
+                            <div class="avoid-break pt-2 border-t border-slate-700/50">
+                                <div class="font-bold text-slate-200" data-fr="Conférences (ICVL 2011 / VRIC 2010)" data-en="Conferences (ICVL 2011 / VRIC 2010)">Conférences (ICVL 2011 / VRIC 2010)</div>
+                                <div class="text-slate-300 italic">"VirTeaSy a haptic simulator for dental education & implantology"</div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- LANGUES & DIVERS -->
+                    <section class="glass-card p-5 space-y-3">
+                        <h2 class="text-base font-bold text-white uppercase tracking-wider border-b border-slate-700/60 pb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-earth-americas text-sky-400"></i> <span data-fr="Langues & Loisirs" data-en="Languages & Hobbies">Langues & Loisirs</span>
+                        </h2>
+
+                        <div class="space-y-2 text-xs">
+                            <div>
+                                <span class="font-bold text-white" data-fr="Langues :" data-en="Languages:">Langues :</span>
+                                <span class="text-slate-300" data-fr=" Français (Natif), Anglais (Courant)" data-en=" French (Native), English (Fluent)"> Français (Natif), Anglais (Courant)</span>
+                            </div>
+                            <div>
+                                <span class="font-bold text-white" data-fr="Loisirs :" data-en="Hobbies:">Loisirs :</span>
+                                <span class="text-slate-300" data-fr=" Roller Hockey (Initiateur Fédéral & Manager), Impression 3D (FDM/SLA), Guitare, Infographie 2D/3D" data-en=" Roller Hockey (Coach & Manager), 3D Printing (FDM/SLA), Guitar, 2D/3D Graphics"> Roller Hockey (Initiateur Fédéral & Manager), Impression 3D (FDM/SLA), Guitare, Infographie 2D/3D</span>
+                            </div>
+                        </div>
+                    </section>
+
+                </aside>
+
+                <!-- COLONNE DROITE (8 Cols) : Expériences, Projets & Formation -->
+                <main class="lg:col-span-8 space-y-6">
+
+                    <!-- EXPÉRIENCES PROFESSIONNELLES -->
+                    <section class="glass-card p-6 space-y-5">
+                        <h2 class="text-lg font-bold text-white uppercase tracking-wider border-b border-slate-700/60 pb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-briefcase text-sky-400"></i> <span data-fr="Expériences Professionnelles" data-en="Professional Experience">Expériences Professionnelles</span>
+                        </h2>
+
+                        <div class="space-y-5">
+
+                            <!-- Exp 1 -->
+                            <div class="avoid-break data-card border-l-2 border-sky-400 pl-4 space-y-1.5" data-skills="Data,BI,Gouvernance Data,Business Intelligence,IA">
+                                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                                    <h3 class="text-base font-bold text-white" data-fr='Chef de projet "Valorisation de la donnée"' data-en='Project Manager - "Data Valuation & Governance"'>Chef de projet "Valorisation de la donnée"</h3>
+                                    <span class="px-2.5 py-0.5 rounded-full bg-sky-500/10 border border-sky-500/30 text-sky-400 text-xs font-semibold w-fit" data-fr="Nov 2023 – Présent" data-en="Nov 2023 – Present">
+                                        Nov 2023 – Présent
+                                    </span>
+                                </div>
+                                <div class="text-xs font-semibold text-slate-400" data-fr="DSI (Direction des Systèmes d'Information)" data-en="IT Department (DSI)">DSI (Direction des Systèmes d'Information)</div>
+                                <ul class="list-disc list-inside text-xs text-slate-300 space-y-1 pt-1 leading-relaxed">
+                                    <li data-fr="Pilotage stratégique et opérationnel des projets <strong>Data</strong>, <strong>Business Intelligence (BI)</strong> et <strong>Gouvernance stratégique des données</strong>." data-en="Strategic and operational management of <strong>Data</strong>, <strong>Business Intelligence (BI)</strong>, and <strong>Data Governance</strong> projects.">Pilotage stratégique et opérationnel des projets <strong>Data</strong>, <strong>Business Intelligence (BI)</strong> et <strong>Gouvernance stratégique des données</strong>.</li>
+                                    <li data-fr="Structuration des pipelines d'intégration de données (ETL/ELT), modélisation des entrepôts décisionnels et création de <strong>tableaux de bord analytiques</strong> métiers." data-en="Designing data integration pipelines (ETL/ELT), data warehouse modeling, and building business <strong>analytics dashboards</strong>.">Structuration des pipelines d'intégration de données (ETL/ELT), modélisation des entrepôts décisionnels et création de <strong>tableaux de bord analytiques</strong> métiers.</li>
+                                    <li data-fr="Cadrage technique et accompagnement des directions dans la valorisation algorithmique et l'intégration de briques d'<strong>Intelligence Artificielle</strong>." data-en="Technical scoping and department support for algorithmic valuation and integration of <strong>Artificial Intelligence</strong> modules.">Cadrage technique et accompagnement des directions dans la valorisation algorithmique et l'intégration de briques d'<strong>Intelligence Artificielle</strong>.</li>
+                                </ul>
+                            </div>
+
+                            <!-- Exp 2 -->
+                            <div class="avoid-break data-card border-l-2 border-slate-600 pl-4 space-y-1.5" data-skills="YOLO,OpenCV,PyTorch,Computer Vision,IA,3D">
+                                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                                    <h3 class="text-base font-bold text-white" data-fr="Ingénieur Indépendant – Conseil IA, Computer Vision & 3D" data-en="Freelance Engineer – AI, Computer Vision & 3D Consulting">Ingénieur Indépendant – Conseil IA, Computer Vision & 3D</h3>
+                                    <span class="px-2.5 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-xs font-semibold w-fit" data-fr="Fév 2023 – Nov 2023" data-en="Feb 2023 – Nov 2023">
+                                        Fév 2023 – Nov 2023
+                                    </span>
+                                </div>
+                                <div class="text-xs font-semibold text-slate-400" data-fr="Consulting & R&D Indépendant" data-en="Independent Consulting & R&D">Consulting & R&D Indépendant</div>
+                                <ul class="list-disc list-inside text-xs text-slate-300 space-y-1 pt-1 leading-relaxed">
+                                    <li data-fr="Audit, conseil et développement de solutions sur mesure en <strong>Intelligence Artificielle</strong>, <strong>Computer Vision</strong> et <strong>Modélisation 3D</strong>." data-en="Audit, consulting, and custom solution development in <strong>Artificial Intelligence</strong>, <strong>Computer Vision</strong>, and <strong>3D Modeling</strong>.">Audit, conseil et développement de solutions sur mesure en <strong>Intelligence Artificielle</strong>, <strong>Computer Vision</strong> et <strong>Modélisation 3D</strong>.</li>
+                                    <li data-fr="Conception de pipelines d'acquisition et de traitement d'images temps réel (<strong>OpenCV, PyTorch, YOLO</strong>)." data-en="Design of real-time image acquisition and processing pipelines (<strong>OpenCV, PyTorch, YOLO</strong>).">Conception de pipelines d'acquisition et de traitement d'images temps réel (<strong>OpenCV, PyTorch, YOLO</strong>).</li>
+                                    <li data-fr="Génération automatisée de <strong>jeux de données synthétiques 3D</strong> pour le fine-tuning de modèles de vision en environnement contraint." data-en="Automated generation of <strong>3D synthetic datasets</strong> for fine-tuning computer vision models under constrained environments.">Génération automatisée de <strong>jeux de données synthétiques 3D</strong> pour le fine-tuning de modèles de vision en environnement contraint.</li>
+                                </ul>
+                            </div>
+
+                            <!-- Exp 3 -->
+                            <div class="avoid-break data-card border-l-2 border-slate-600 pl-4 space-y-1.5" data-skills="Deep Learning,MLOps,CI/CD,Python,IA">
+                                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                                    <h3 class="text-base font-bold text-white" data-fr="Ingénieur IA & MLOps / DevOps" data-en="AI & MLOps / DevOps Engineer">Ingénieur IA & MLOps / DevOps</h3>
+                                    <span class="px-2.5 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-xs font-semibold w-fit" data-fr="Déc 2021 – Fév 2023" data-en="Dec 2021 – Feb 2023">
+                                        Déc 2021 – Fév 2023
+                                    </span>
+                                </div>
+                                <div class="text-xs font-semibold text-slate-400" data-fr="DSI" data-en="IT Department (DSI)">DSI</div>
+                                <ul class="list-disc list-inside text-xs text-slate-300 space-y-1 pt-1 leading-relaxed">
+                                    <li data-fr="Conception et entraînement de modèles de <strong>Deep Learning (OCR & NLP)</strong> pour l'analyse, le tri et l'indexation automatique de documents administratifs." data-en="Design and training of <strong>Deep Learning models (OCR & NLP)</strong> for automated processing, sorting, and indexing of administrative documents.">Conception et entraînement de modèles de <strong>Deep Learning (OCR & NLP)</strong> pour l'analyse, le tri et l'indexation automatique de documents administratifs.</li>
+                                    <li data-fr="Mise en place de architectures <strong>MLOps & CI/CD</strong> (Docker, GitLab CI) pour l'automatisation du déploiement des modèles d'<strong>Intelligence Artificielle</strong>." data-en="Implementation of <strong>MLOps & CI/CD</strong> architectures (Docker, GitLab CI) for automated deployment of <strong>Artificial Intelligence</strong> models.">Mise en place de architectures <strong>MLOps & CI/CD</strong> (Docker, GitLab CI) pour l'automatisation du déploiement des modèles d'<strong>Intelligence Artificielle</strong>.</li>
+                                    <li data-fr="Supervision des environnements de production et intégration continue pour l'ensemble des services de la Polynésie Française." data-en="Supervision of production environments and continuous integration for all government services in French Polynesia.">Supervision des environnements de production et intégration continue pour l'ensemble des services de la Polynésie Française.</li>
+                                </ul>
+                            </div>
+
+                            <!-- Exp 4 -->
+                            <div class="avoid-break data-card border-l-2 border-slate-600 pl-4 space-y-1.5" data-skills="OCR,PCL,PointCloud,C++,HoloLens,Réalité Augmentée,Computer Vision,3D">
+                                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                                    <h3 class="text-base font-bold text-white" data-fr="Ingénieur de Recherche – Réalité Augmentée Industrielle" data-en="Research Engineer – Industrial Augmented Reality">Ingénieur de Recherche – Réalité Augmentée Industrielle</h3>
+                                    <span class="px-2.5 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-xs font-semibold w-fit" data-fr="Mars 2016 – Oct 2020" data-en="Mar 2016 – Oct 2020">
+                                        Mars 2016 – Oct 2020
+                                    </span>
+                                </div>
+                                <div class="text-xs font-semibold text-slate-400">Diota</div>
+                                <ul class="list-disc list-inside text-xs text-slate-300 space-y-1 pt-1 leading-relaxed">
+                                    <li data-fr="R&D avancée en <strong>Réalité Augmentée</strong> et <strong>Computer Vision</strong> pour le contrôle qualité et l'assistance à la fabrication industrielle." data-en="Advanced R&D in <strong>Augmented Reality</strong> and <strong>Computer Vision</strong> for industrial quality control and manufacturing assistance.">R&D avancée en <strong>Réalité Augmentée</strong> et <strong>Computer Vision</strong> pour le contrôle qualité et l'assistance à la fabrication industrielle.</li>
+                                    <li data-fr="Développement d'algorithmes de <strong>calibrage projectif 2D/3D</strong> (systèmes caméra/vidéoprojecteur) et de recalage géométrique." data-en="Development of <strong>2D/3D projective calibration algorithms</strong> (camera-projector systems) and geometric registration.">Développement d'algorithmes de <strong>calibrage projectif 2D/3D</strong> (systèmes caméra/vidéoprojecteur) et de recalage géométrique.</li>
+                                    <li data-fr="Traitement et segmentation de <strong>nuages de points 3D (PCL)</strong> pour la détection de formes géométriques complexes et le suivi sur casques <strong>HoloLens</strong>." data-en="Processing and segmentation of <strong>3D point clouds (PCL)</strong> for complex geometric shape detection and tracking on <strong>HoloLens</strong> headsets.">Traitement et segmentation de <strong>nuages de points 3D (PCL)</strong> pour la détection de formes géométriques complexes et le suivi sur casques <strong>HoloLens</strong>.</li>
+                                    <li data-fr="Conception de moteurs d'<strong>OCR Deep Learning (C++ / OpenCV)</strong> optimisés pour la lecture haute vitesse de marquages industriels en conditions sévères." data-en="Design of <strong>Deep Learning OCR engines (C++ / OpenCV)</strong> optimized for high-speed industrial marking reading under harsh conditions.">Conception de moteurs d'<strong>OCR Deep Learning (C++ / OpenCV)</strong> optimisés pour la lecture haute vitesse de marquages industriels en conditions sévères.</li>
+                                </ul>
+                            </div>
+
+                            <!-- Exp 5 -->
+                            <div class="avoid-break data-card border-l-2 border-slate-600 pl-4 space-y-1.5" data-skills="C++,3D,OpenGL,Simulation">
+                                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                                    <h3 class="text-base font-bold text-white" data-fr="Ingénieur R&D – Moteur de Simulation 3D & Physique" data-en="R&D Engineer – 3D Simulation & Physics Engine">Ingénieur R&D – Moteur de Simulation 3D & Physique</h3>
+                                    <span class="px-2.5 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-xs font-semibold w-fit" data-fr="Juil 2014 – Fév 2016" data-en="Jul 2014 – Feb 2016">
+                                        Juil 2014 – Fév 2016
+                                    </span>
+                                </div>
+                                <div class="text-xs font-semibold text-slate-400">Lectra</div>
+                                <ul class="list-disc list-inside text-xs text-slate-300 space-y-1 pt-1 leading-relaxed">
+                                    <li data-fr="Développement <strong>C++</strong> du <strong>moteur de simulation 3D temps réel</strong> pour la modélisation physique du drapé de tissus sur mannequins virtuels." data-en="<strong>C++</strong> development of a <strong>real-time 3D simulation engine</strong> for physical fabric draping on virtual mannequins.">Développement <strong>C++</strong> du <strong>moteur de simulation 3D temps réel</strong> pour la modélisation physique du drapé de tissus sur mannequins virtuels.</li>
+                                    <li data-fr="Implémentation d'algorithmes de détection de <strong>collisions 3D complexes</strong>, d'intégration mécanique et de rendu graphique <strong>OpenGL</strong>." data-en="Implementation of complex <strong>3D collision detection</strong>, mechanical integration algorithms, and <strong>OpenGL</strong> graphic rendering.">Implémentation d'algorithmes de détection de <strong>collisions 3D complexes</strong>, d'intégration mécanique et de rendu graphique <strong>OpenGL</strong>.</li>
+                                    <li data-fr="Optimisation des maillages dynamiques 3D et accélération calculatoire pour garantir un traitement fluide à 60 FPS." data-en="Optimization of dynamic 3D meshes and computational acceleration to guarantee smooth 60 FPS execution.">Optimisation des maillages dynamiques 3D et accélération calculatoire pour garantir un traitement fluide à 60 FPS.</li>
+                                </ul>
+                            </div>
+
+                            <!-- Exp 6 -->
+                            <div class="avoid-break data-card border-l-2 border-slate-600 pl-4 space-y-1.5" data-skills="C++,Rendu volumique,OpenGL,Qt,Simulation,Medical,3D">
+                                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                                    <h3 class="text-base font-bold text-white" data-fr="Ingénieur R&D Réalité Virtuelle, Rendu 3D & Médical" data-en="R&D Engineer – Virtual Reality, 3D Rendering & Medical">Ingénieur R&D Réalité Virtuelle, Rendu 3D & Médical</h3>
+                                    <span class="px-2.5 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-slate-300 text-xs font-semibold w-fit" data-fr="Oct 2007 – Avr 2013" data-en="Oct 2007 – Apr 2013">
+                                        Oct 2007 – Avr 2013
+                                    </span>
+                                </div>
+                                <div class="text-xs font-semibold text-slate-400">DIDHAPTIC SAS</div>
+                                <ul class="list-disc list-inside text-xs text-slate-300 space-y-1 pt-1 leading-relaxed">
+                                    <li data-fr="Responsable R&D du réalisme sensoriel et visuel du <strong>simulateur chirurgical 3D VirTeaSy</strong> (implantologie et chirurgie dentaire)." data-en="R&D lead for sensory and visual realism in the <strong>VirTeaSy 3D surgical simulator</strong> (dental implantology and surgery).">Responsable R&D du réalisme sensoriel et visuel du <strong>simulateur chirurgical 3D VirTeaSy</strong> (implantologie et chirurgie dentaire).</li>
+                                    <li data-fr="Conception du moteur de <strong>rendu volumique GPU (Raycasting GLSL)</strong> pour la visualisation 3D en coupe d'examens scanner (DICOM)." data-en="Design of GPU <strong>volume rendering engine (GLSL Raycasting)</strong> for 3D cross-sectional CT scan (DICOM) visualization.">Conception du moteur de <strong>rendu volumique GPU (Raycasting GLSL)</strong> pour la visualisation 3D en coupe d'examens scanner (DICOM).</li>
+                                    <li data-fr="Développement du moteur haptique à <strong>retour d'effort 6-DOF</strong> pour la simulation haptique haute fidélité des tissus osseux et des outils chirurgicaux." data-en="Development of a <strong>6-DOF force-feedback haptic engine</strong> for high-fidelity tactile simulation of bone tissues and surgical tools.">Développement du moteur haptique à <strong>retour d'effort 6-DOF</strong> pour la simulation haptique haute fidélité des tissus osseux et des outils chirurgicaux.</li>
+                                    <li data-fr="Chef de projet R&D des simulateurs <strong>SpineLive</strong> (chirurgie du rachis) et <strong>Virtual Alti-Phob</strong> (réalité virtuelle thérapeutique)." data-en="R&D project manager for <strong>SpineLive</strong> (spine surgery) and <strong>Virtual Alti-Phob</strong> (therapeutic VR) simulators.">Chef de projet R&D des simulateurs <strong>SpineLive</strong> (chirurgie du rachis) et <strong>Virtual Alti-Phob</strong> (réalité virtuelle thérapeutique).</li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </section>
+
+                    <!-- PROJETS R&D & OPEN SOURCE RÉCENTS -->
+                    <section id="projets" class="glass-card p-6 space-y-4">
+                        <h2 class="text-lg font-bold text-white uppercase tracking-wider border-b border-slate-700/60 pb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-code text-sky-400"></i> <span data-fr="Projets R&D & Open Source" data-en="R&D & Open Source Projects">Projets R&D & Open Source</span>
+                        </h2>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                            <!-- Projet 1 : DartNet -->
+                            <div class="avoid-break p-4 rounded-xl bg-slate-800/40 border border-slate-700/60 space-y-2 data-card" data-skills="YOLO,Données Synthétiques,Python,Computer Vision">
+                                <div class="flex items-center justify-between">
+                                    <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                                        <i class="fa-solid fa-bullseye text-sky-400"></i> DartNet
+                                    </h3>
+                                    <a href="https://github.com/syllebra/dartnet" target="_blank" rel="noopener" class="text-xs text-sky-400 hover:underline flex items-center gap-1">
+                                        <i class="fa-brands fa-github"></i> GitHub
+                                    </a>
+                                </div>
+                                <p class="text-xs text-slate-300 leading-relaxed" data-fr="Système de détection et suivi de fléchettes en temps réel sur cible classique. Modèle YOLO fine-tuné à 100% sur un jeu de données synthétiques 3D généré sur mesure (méthode <i>sim-to-real</i>)." data-en="Real-time dart detection and tracking system on traditional dartboards. YOLO model 100% fine-tuned on custom-generated 3D synthetic datasets (<i>sim-to-real</i> method).">
+                                    Système de détection et suivi de fléchettes en temps réel sur cible classique. Modèle YOLO fine-tuné à 100% sur un jeu de données synthétiques 3D généré sur mesure (méthode <i>sim-to-real</i>).
+                                </p>
+                                <div class="flex flex-wrap gap-1 pt-1">
+                                    <span class="text-[10px] px-2 py-0.5 rounded bg-sky-500/10 text-sky-400 border border-sky-500/20 font-mono">YOLO</span>
+                                    <span class="text-[10px] px-2 py-0.5 rounded bg-sky-500/10 text-sky-400 border border-sky-500/20 font-mono">SynthData 3D</span>
+                                    <span class="text-[10px] px-2 py-0.5 rounded bg-sky-500/10 text-sky-400 border border-sky-500/20 font-mono">Python</span>
+                                </div>
+                            </div>
+
+                            <!-- Projet 2 : Unit3D Pinball -->
+                            <div class="avoid-break p-4 rounded-xl bg-slate-800/40 border border-slate-700/60 space-y-2 data-card" data-skills="Unity3D,C#,Simulation,3D">
+                                <div class="flex items-center justify-between">
+                                    <h3 class="text-sm font-bold text-white flex items-center gap-2">
+                                        <i class="fa-solid fa-gamepad text-sky-400"></i> Unit3D Pinball
+                                    </h3>
+                                    <span class="text-xs text-slate-400">Oculus Rift VR</span>
+                                </div>
+                                <p class="text-xs text-slate-300 leading-relaxed" data-fr="Simulateur de flipper interactif physique en Réalité Virtuelle développé sous Unity3D & C# avec gestion fine du retour physique et des collisions." data-en="Interactive physics pinball simulator in Virtual Reality developed with Unity3D & C# featuring fine-tuned physics response and collisions.">
+                                    Simulateur de flipper interactif physique en Réalité Virtuelle développé sous Unity3D & C# avec gestion fine du retour physique et des collisions.
+                                </p>
+                                <div class="flex flex-wrap gap-1 pt-1">
+                                    <span class="text-[10px] px-2 py-0.5 rounded bg-sky-500/10 text-sky-400 border border-sky-500/20 font-mono">Unity3D</span>
+                                    <span class="text-[10px] px-2 py-0.5 rounded bg-sky-500/10 text-sky-400 border border-sky-500/20 font-mono">C#</span>
+                                    <span class="text-[10px] px-2 py-0.5 rounded bg-sky-500/10 text-sky-400 border border-sky-500/20 font-mono">VR / Oculus</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </section>
+
+                    <!-- FORMATION & DIPLÔMES -->
+                    <section id="formation" class="glass-card p-6 space-y-4">
+                        <h2 class="text-lg font-bold text-white uppercase tracking-wider border-b border-slate-700/60 pb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-graduation-cap text-sky-400"></i> <span data-fr="Formation & Diplômes" data-en="Education & Degrees">Formation & Diplômes</span>
+                        </h2>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="avoid-break p-4 rounded-xl bg-slate-800/40 border border-slate-700/60 space-y-1 md:col-span-2">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs font-bold text-sky-400">2004 – 2007</span>
+                                    <span class="text-[10px] px-2 py-0.5 rounded bg-sky-500/10 text-sky-300 font-mono border border-sky-500/20" data-fr="Doctorat PhD" data-en="Ph.D. Degree">Doctorat PhD</span>
+                                </div>
+                                <div class="text-sm font-bold text-white" data-fr="Doctorat en Informatique" data-en="Ph.D. in Computer Science">Doctorat en Informatique</div>
+                                <div class="text-xs text-slate-400" data-fr="Université de Lille 1 (Projet Alcove / LIFL)" data-en="University of Lille 1 (Alcove Project / LIFL)">Université de Lille 1 (Projet Alcove / LIFL)</div>
+                                <p class="text-xs text-slate-300 mt-1 italic leading-relaxed" data-fr='SBD: "Estimation de propriétés mécaniques d'objets complexes à partir de séquences d'images"' data-en='Thesis: "Mechanical property estimation of complex objects from image sequences"'>
+                                    SBD: "Estimation de propriétés mécaniques d'objets complexes à partir de séquences d'images"
+                                </p>
+                            </div>
+
+                            <div class="avoid-break p-3.5 rounded-xl bg-slate-800/40 border border-slate-700/60 space-y-1">
+                                <div class="text-xs font-bold text-sky-400">2003 – 2004</div>
+                                <div class="text-xs font-bold text-white" data-fr="Master 2 (DEA) Informatique" data-en="Master's Degree (M.Sc.) Computer Science">Master 2 (DEA) Informatique</div>
+                                <div class="text-[11px] text-slate-400" data-fr="Université de Lille 1" data-en="University of Lille 1">Université de Lille 1</div>
+                            </div>
+
+                            <div class="avoid-break p-3.5 rounded-xl bg-slate-800/40 border border-slate-700/60 space-y-1">
+                                <div class="text-xs font-bold text-sky-400">2002 – 2003</div>
+                                <div class="text-xs font-bold text-white" data-fr="Master 2 (DESS) IA & Génie Logiciel" data-en="Master's Degree (M.Sc.) AI & Software Engineering">Master 2 (DESS) IA & Génie Logiciel</div>
+                                <div class="text-[11px] text-slate-400" data-fr="Université de Lille 1" data-en="University of Lille 1">Université de Lille 1</div>
+                            </div>
+
+                            <div class="avoid-break p-3.5 rounded-xl bg-slate-800/40 border border-slate-700/60 space-y-1 md:col-span-2">
+                                <div class="text-xs font-bold text-sky-400">1998 – 2002</div>
+                                <div class="text-xs font-bold text-white" data-fr="DUT 1 & Licence Informatique" data-en="Associate's & Bachelor's Degree in CS">DUT 1 & Licence Informatique</div>
+                                <div class="text-[11px] text-slate-400" data-fr="Université de Lille 1" data-en="University of Lille 1">Université de Lille 1</div>
+                            </div>
+                        </div>
+                    </section>
+
+                </main>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Toast notification -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-sky-500 text-slate-950 px-4 py-2.5 rounded-xl font-bold text-xs shadow-2xl transition-all opacity-0 translate-y-5 pointer-events-none z-50 flex items-center gap-2">
+        <i class="fa-solid fa-circle-check"></i>
+        <span id="toast-message">Message</span>
+    </div>
+
+    <!-- Scripts : Canvas Fond Interactif, Langue, Thème, Filtrage & Utilitaires -->
+    <script>
+        // Global Theme & Language variables
+        let isLightMode = false;
+        let currentLang = 'fr';
+
+        /* -------------------------------------------------------------
+           MOTEUR DE PARTICULES & RÉSEAU INTERACTIF (CANVAS)
+        ------------------------------------------------------------- */
+        const canvas = document.getElementById('tech-bg-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            initParticles();
+        });
+
+        // Suivi de la souris
+        const mouse = {
+            x: null,
+            y: null,
+            radius: 190
+        };
+
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.clientX;
+            mouse.y = e.clientY;
+        });
+
+        window.addEventListener('mouseleave', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        // Suivi de la vélocité du défilement (Scroll interaction)
+        let lastScrollY = window.scrollY;
+        let scrollVelocity = 0;
+
+        window.addEventListener('scroll', () => {
+            const currentScrollY = window.scrollY;
+            scrollVelocity += (currentScrollY - lastScrollY) * 0.12;
+            lastScrollY = currentScrollY;
+        }, { passive: true });
+
+        // Impulsion lumineuse au clic
+        const pulses = [];
+        window.addEventListener('click', (e) => {
+            pulses.push({
+                x: e.clientX,
+                y: e.clientY,
+                radius: 0,
+                maxRadius: 200,
+                alpha: 0.8
+            });
+        });
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.6;
+                this.vy = (Math.random() - 0.5) * 0.6;
+                this.baseVx = this.vx;
+                this.baseVy = this.vy;
+                this.size = Math.random() * 1.6 + 0.8;
+            }
+
+            update() {
+                // Réaction au scroll
+                this.y -= scrollVelocity * 0.18;
+
+                // Interaction dynamique avec la souris
+                if (mouse.x !== null && mouse.y !== null) {
+                    const dx = mouse.x - this.x;
+                    const dy = mouse.y - this.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < mouse.radius && dist > 0) {
+                        const force = (mouse.radius - dist) / mouse.radius;
+                        const direction = dist < 75 ? -1.2 : 0.45;
+                        
+                        this.vx += (dx / dist) * force * direction * 0.15;
+                        this.vy += (dy / dist) * force * direction * 0.15;
+                    }
+                }
+
+                this.vx += (this.baseVx - this.vx) * 0.04;
+                this.vy += (this.baseVy - this.vy) * 0.04;
+
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < -20) this.x = width + 20;
+                if (this.x > width + 20) this.x = -20;
+                if (this.y < -20) this.y = height + 20;
+                if (this.y > height + 20) this.y = -20;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = isLightMode ? 'rgba(2, 132, 199, 0.4)' : 'rgba(56, 189, 248, 0.55)';
+                ctx.fill();
+            }
+        }
+
+        // Grandes auras ultra-diffuses en fond
+        class AmbientOrb {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.15;
+                this.vy = (Math.random() - 0.5) * 0.15;
+                this.baseVx = this.vx;
+                this.baseVy = this.vy;
+                this.size = Math.min(width, height) * (0.35 + Math.random() * 0.35);
+                this.hue = 185 + Math.random() * 40;
+                this.sat = 70 + Math.random() * 20;
+            }
+
+            update() {
+                this.y -= scrollVelocity * 0.04;
+
+                if (mouse.x !== null && mouse.y !== null) {
+                    const dx = mouse.x - this.x;
+                    const dy = mouse.y - this.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < mouse.radius * 2.5 && dist > 0) {
+                        const force = (mouse.radius * 2.5 - dist) / (mouse.radius * 2.5);
+                        this.vx -= (dx / dist) * force * 0.025;
+                        this.vy -= (dy / dist) * force * 0.025;
+                    }
+                }
+
+                this.vx += (this.baseVx - this.vx) * 0.01;
+                this.vy += (this.baseVy - this.vy) * 0.01;
+
+                this.x += this.vx;
+                this.y += this.vy;
+
+                const margin = this.size;
+                if (this.x < -margin) this.x = width + margin;
+                if (this.x > width + margin) this.x = -margin;
+                if (this.y < -margin) this.y = height + margin;
+                if (this.y > height + margin) this.y = -margin;
+            }
+
+            draw() {
+                const gradient = ctx.createRadialGradient(
+                    this.x, this.y, 0,
+                    this.x, this.y, this.size
+                );
+
+                if (isLightMode) {
+                    // Mode clair : Orbes ardoise/gris plus soutenues pour structurer le fond
+                    const greyAlpha = 0.18;
+                    const greyHue = 215;
+                    const greySat = 12;
+                    const greyLight = 42;
+
+                    gradient.addColorStop(0, `hsla(${greyHue}, ${greySat}%, ${greyLight}%, ${greyAlpha})`);
+                    gradient.addColorStop(0.4, `hsla(${greyHue}, ${greySat}%, ${greyLight}%, ${greyAlpha * 0.5})`);
+                    gradient.addColorStop(1, `hsla(${greyHue}, ${greySat}%, ${greyLight}%, 0)`);
+                } else {
+                    const baseAlpha = 0.10;
+                    const lightness = 52;
+
+                    gradient.addColorStop(0, `hsla(${this.hue}, ${this.sat}%, ${lightness}%, ${baseAlpha})`);
+                    gradient.addColorStop(0.4, `hsla(${this.hue}, ${this.sat}%, ${lightness}%, ${baseAlpha * 0.45})`);
+                    gradient.addColorStop(1, `hsla(${this.hue}, ${this.sat}%, ${lightness}%, 0)`);
+                }
+
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = gradient;
+                ctx.fill();
+            }
+        }
+
+        let particles = [];
+        let ambientOrbs = [];
+
+        function initParticles() {
+            particles = [];
+            ambientOrbs = [];
+
+            const particleCount = Math.floor((width * height) / 10500);
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+
+            const orbCount = Math.floor((width * height) / 180000) + 3;
+            for (let i = 0; i < orbCount; i++) {
+                ambientOrbs.push(new AmbientOrb());
+            }
+        }
+
+        function connectParticles() {
+            const maxDistance = 155;
+            for (let a = 0; a < particles.length; a++) {
+                for (let b = a + 1; b < particles.length; b++) {
+                    const dx = particles[a].x - particles[b].x;
+                    const dy = particles[a].y - particles[b].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < maxDistance) {
+                        const alphaRatio = Math.pow(1 - dist / maxDistance, 1.8);
+                        const alpha = alphaRatio * (isLightMode ? 0.09 : 0.14);
+
+                        ctx.beginPath();
+                        ctx.moveTo(particles[a].x, particles[a].y);
+                        ctx.lineTo(particles[b].x, particles[b].y);
+                        ctx.strokeStyle = isLightMode 
+                            ? `rgba(2, 132, 199, ${alpha})` 
+                            : `rgba(56, 189, 248, ${alpha})`;
+                        ctx.lineWidth = 0.75;
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+
+            scrollVelocity *= 0.92;
+
+            ambientOrbs.forEach(orb => {
+                orb.update();
+                orb.draw();
+            });
+
+            for (let i = pulses.length - 1; i >= 0; i--) {
+                const p = pulses[i];
+                p.radius += 3.5;
+                p.alpha -= 0.02;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.strokeStyle = isLightMode 
+                    ? `rgba(2, 132, 199, ${p.alpha * 0.35})` 
+                    : `rgba(56, 189, 248, ${p.alpha * 0.5})`;
+                ctx.lineWidth = 1.5;
+                ctx.stroke();
+
+                if (p.alpha <= 0 || p.radius >= p.maxRadius) {
+                    pulses.splice(i, 1);
+                }
+            }
+
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            connectParticles();
+            requestAnimationFrame(animate);
+        }
+
+        initParticles();
+        animate();
+
+        /* -------------------------------------------------------------
+           BASCULE DE LANGUE (FRANÇAIS / ANGLAIS)
+        ------------------------------------------------------------- */
+        function toggleLanguage() {
+            currentLang = currentLang === 'fr' ? 'en' : 'fr';
+            document.documentElement.lang = currentLang;
+
+            // Traduction dynamique de tous les éléments à attributs data-fr / data-en
+            document.querySelectorAll('[data-fr]').forEach(el => {
+                const translation = el.getAttribute(`data-${currentLang}`);
+                if (translation) {
+                    el.innerHTML = translation;
+                }
+            });
+
+            // Mise à jour de la surbrillance FR / EN
+            updateLangSwitcherUI();
+
+            // Notification Toast
+            showToast(currentLang === 'en' ? "Switched to English" : "Passé en français");
+        }
+
+        function updateLangSwitcherUI() {
+            const frEl = document.getElementById('lang-fr');
+            const enEl = document.getElementById('lang-en');
+            if (!frEl || !enEl) return;
+
+            if (currentLang === 'fr') {
+                frEl.className = 'px-1.5 py-0.5 rounded text-[11px] transition-all bg-sky-500 text-slate-950 font-black shadow-sm';
+                enEl.className = 'px-1.5 py-0.5 rounded text-[11px] transition-all text-slate-400 font-medium hover:text-slate-200';
+            } else {
+                enEl.className = 'px-1.5 py-0.5 rounded text-[11px] transition-all bg-sky-500 text-slate-950 font-black shadow-sm';
+                frEl.className = 'px-1.5 py-0.5 rounded text-[11px] transition-all text-slate-400 font-medium hover:text-slate-200';
+            }
+        }
+
+        /* -------------------------------------------------------------
+           BASCULE DE THÈME (CLAIR / SOMBRE)
+        ------------------------------------------------------------- */
+        function toggleTheme() {
+            isLightMode = !isLightMode;
+            const body = document.body;
+            const themeIcon = document.getElementById('theme-icon');
+
+            if (isLightMode) {
+                body.classList.add('light-mode');
+                themeIcon.className = 'fa-solid fa-moon text-indigo-400';
+                showToast(currentLang === 'fr' ? "Thème clair activé" : "Light theme enabled");
+            } else {
+                body.classList.remove('light-mode');
+                themeIcon.className = 'fa-solid fa-sun text-amber-400';
+                showToast(currentLang === 'fr' ? "Thème sombre activé" : "Dark theme enabled");
+            }
+        }
+
+        /* -------------------------------------------------------------
+           EXPORTS & IMPRESSION PDF
+        ------------------------------------------------------------- */
+        function exportPDF() {
+            const originallyLight = isLightMode;
+            if (!originallyLight) {
+                toggleTheme();
+            }
+            
+            setTimeout(() => {
+                window.print();
+            }, 150);
+        }
+
+        /* -------------------------------------------------------------
+           UTILITAIRES (COPY & TOAST)
+        ------------------------------------------------------------- */
+        function copyToClipboard(text, message) {
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text);
+            } else {
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+            }
+            showToast(message);
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-message');
+            toastMsg.textContent = message;
+            toast.classList.remove('opacity-0', 'translate-y-5', 'pointer-events-none');
+            toast.classList.add('opacity-100', 'translate-y-0');
+
+            setTimeout(() => {
+                toast.classList.remove('opacity-100', 'translate-y-0');
+                toast.classList.add('opacity-0', 'translate-y-5', 'pointer-events-none');
+            }, 2500);
+        }
+
+        /* -------------------------------------------------------------
+           FILTRAGE DYNAMIQUE DES COMPÉTENCES
+        ------------------------------------------------------------- */
+        let activeSkillFilter = null;
+
+        function filterSkill(skillName) {
+            const badges = document.querySelectorAll('.skill-badge');
+            const cards = document.querySelectorAll('.data-card');
+
+            if (activeSkillFilter === skillName) {
+                activeSkillFilter = null;
+                badges.forEach(b => b.classList.remove('active-filter'));
+                cards.forEach(c => c.classList.remove('highlight-card'));
+                showToast(currentLang === 'fr' ? "Filtre réinitialisé" : "Filter reset");
+                return;
+            }
+
+            activeSkillFilter = skillName;
+
+            badges.forEach(badge => {
+                if (badge.textContent.toLowerCase().includes(skillName.toLowerCase())) {
+                    badge.classList.add('active-filter');
+                } else {
+                    badge.classList.remove('active-filter');
+                }
+            });
+
+            cards.forEach(card => {
+                const cardSkills = card.getAttribute('data-skills') || card.textContent;
+                if (cardSkills.toLowerCase().includes(skillName.toLowerCase())) {
+                    card.classList.add('highlight-card');
+                } else {
+                    card.classList.remove('highlight-card');
+                }
+            });
+
+            showToast((currentLang === 'fr' ? "Filtre appliqué : " : "Filter applied: ") + skillName);
+        }
+    </script>
+</body>
+</html>
