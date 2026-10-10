@@ -203,10 +203,373 @@
         }
 
         /* -------------------------------------------------------------
+           GALLERY OF WORK EXPERIENCES (click a card -> gallery opens)
+        ------------------------------------------------------------- */
+        .exp-gallery-badge {
+            display: inline-flex;
+            width: fit-content;
+            font-size: 10px;
+            font-weight: 700;
+            color: #7dd3fc;
+            background: rgba(14, 163, 233, 0.12);
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            border-radius: 999px;
+            padding: 2px 10px;
+            white-space: nowrap;
+            margin: 0;
+        }
+
+        body.light-mode .exp-gallery-badge {
+            color: #0369a1;
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+        }
+
+        .exp-gallery {
+            margin-top: 12px;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            pointer-events: none;
+            transition: max-height 0.55s cubic-bezier(0.32, 0.72, 0.24, 1), opacity 0.4s ease-in-out;
+        }
+
+        .exp-gallery.open {
+            max-height: 3000px;
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .exp-gallery-hd {
+            font-size: 11px;
+            font-weight: 700;
+            color: #e2e8f0;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            pb-1 border-b border-slate-700/50;
+        }
+
+        .exp-gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 12px;
+            pt-3;
+        }
+
+        .exp-gallery-2cols .exp-gallery-grid {
+            grid-template-columns: repeat(2, minmax(120px, 1fr));
+            gap: 10px;
+        }
+
+        @media (max-width: 639px) {
+            .exp-gallery-2cols .exp-gallery-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .exp-thumb {
+            position: relative;
+            aspect-ratio: 16 / 10;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(148, 163, 163, 0.22);
+            background: rgba(15, 23, 42, 0.65);
+            cursor: zoom-in;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .exp-thumb:hover {
+            transform: translateY(-4px) scale(1.03);
+            border-color: rgba(56, 189, 248, 0.8);
+            box-shadow: 0 10px 24px -8px rgba(14, 165, 233, 0.35);
+        }
+
+        .exp-thumb-img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .exp-caption {
+            position: absolute;
+            left: 8px;
+            right: 8px;
+            bottom: 6px;
+            font-size: 10px;
+            line-height: 1.3;
+            font-weight: 600;
+            color: #f8fafc;
+            background: linear-gradient(to top, rgba(2, 6, 23, 0.88), rgba(2, 6, 23, 0));
+            border-radius: 4px;
+        }
+
+        body.light-mode .exp-thumb-play::before {
+            background: radial-gradient(circle at center, rgba(2, 6, 23, 0.7), rgba(2, 6, 23, 0.3) 65%, rgba(2, 6, 23, 0));
+        }
+
+        body.light-mode .exp-thumb {
+            border: 1px solid #cbd5e1;
+            background: #ffffff;
+        }
+
+        body.light-mode .exp-gallery-hd {
+            color: #0f172a;
+            border-color: #e2e8f0;
+        }
+
+        body.light-mode .exp-thumb:hover {
+            border-color: #0284c7;
+            box-shadow: 0 10px 24px -8px rgba(2, 132, 199, 0.25);
+        }
+
+        body.light-mode .exp-caption {
+            color: #0f172a;
+            background: linear-gradient(to top, rgba(248, 250, 252, 0.92), rgba(248, 250, 252, 0));
+        }
+
+        /* Fullscreen lightbox */
+        .exp-lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 70;
+            display: none;
+            background: rgba(2, 6, 23, 0.9);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+        }
+
+        body.light-mode .exp-lightbox {
+            background: rgba(248, 250, 252, 0.94);
+        }
+
+        .exp-lightbox.open {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .exp-lightbox-stage {
+            max-width: 94vw;
+            max-height: 96vh;
+        }
+
+        .exp-lightbox-img {
+            display: block;
+            margin: 0 auto 10px;
+            max-width: 92vw;
+            max-height: 82vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 24px 60px -15px rgba(2, 6, 23, 0.8);
+            cursor: zoom-out;
+        }
+
+        .exp-lightbox-cap {
+            margin-top: 10px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #cbd5e1;
+            text-align: center;
+        }
+
+        body.light-mode .exp-lightbox-cap {
+            color: #334155;
+        }
+
+        .exp-lightbox-close {
+            position: absolute;
+            top: 16px;
+            right: 18px;
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 12px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #cbd5e1;
+            background: rgba(15, 23, 42, 0.72);
+            border: 1px solid rgba(100, 116, 139, 0.6);
+            cursor: pointer;
+            z-index: 72;
+        }
+
+        body.light-mode .exp-lightbox-close {
+            background: rgba(255, 255, 255, 0.85);
+            color: #0f172a;
+            border: 1px solid #cbd5e1;
+        }
+
+
+        /* -------------------------------------------------------------
+           STOP MEDIA ON LIGHTBOX EXIT + CLICK CURSOR ON GALLERYABLE ITEMS
+        ------------------------------------------------------------- */
+        /* everything that opens or closes a gallery asks for a click */
+        .exp-gallery-badge,
+        .exp-gallery-hd,
+        .exp-lightbox-close {
+            cursor: pointer;
+        }
+
+        /* a whole card is galleryable: hovering it invites the click... */
+        .data-card {
+            cursor: pointer;
+        }
+
+        /* ...while its media keep their own affordance: zoom on a photo,
+           play on a video */
+        .exp-thumb {
+            cursor: zoom-in;
+        }
+
+        .exp-thumb-img,
+        .exp-caption {
+            cursor: zoom-in;
+        }
+
+        .exp-thumb-video,
+        .exp-thumb-video .exp-thumb-img,
+        .exp-thumb-video .exp-caption {
+            cursor: pointer;
+        }
+
+        /* a video thumb is played, not zoomed */
+        .exp-thumb-video {
+            cursor: pointer;
+        }
+
+        /* -------------------------------------------------------------
            STYLE D'IMPRESSION & EXPORT PDF
         ------------------------------------------------------------- */
+        /* -------------------------------------------------------------
+           BURGER MENU (SMALL SCREENS)
+        ------------------------------------------------------------- */
+        .burger-toggle {
+            cursor: pointer;
+            min-height: 36px;
+        }
+
+        @media (max-width: 639px) {
+            /* the three action buttons collapse into a dropdown panel */
+            .header-actions {
+                max-height: 0;
+                opacity: 0;
+                pointer-events: none;
+                overflow: hidden;
+                transition: max-height 0.4s cubic-bezier(0.32, 0.72, 0.24, 1), opacity 0.25s ease-in-out;
+            }
+
+            .header-actions.open {
+                position: absolute;
+                top: 100%;
+                right: 8px;
+                width: min(92vw, 340px);
+                max-height: 600px;
+                opacity: 1;
+                pointer-events: auto;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+                padding: 14px;
+                background: rgba(2, 6, 23, 0.96);
+                border: 1px solid rgba(56, 189, 248, 0.3);
+                border-radius: 16px;
+                box-shadow: 0 18px 40px -12px rgba(2, 6, 23, 0.75);
+                transition: max-height 0.4s cubic-bezier(0.32, 0.72, 0.24, 1), opacity 0.25s ease-in-out;
+            }
+
+            .header-actions.open button {
+                display: inline-flex;
+                width: 100%;
+                min-height: 46px;
+                align-items: center;
+                flex-wrap: nowrap;
+            }
+
+            .header-actions.open button:nth-child(3) {
+                justify-content: center;
+            }
+
+            .header-actions.open #theme-text {
+                display: inline;
+            }
+
+            .burger-toggle {
+                justify-content: center;
+            }
+        }
+
+        body.light-mode .header-actions.open {
+            background: rgba(255, 255, 255, 0.97);
+            border: 1px solid #bae6fd;
+            box-shadow: 0 18px 40px -12px rgba(15, 23, 42, 0.25);
+        }
+
+        /* -------------------------------------------------------------
+           PROJECT GALLERIES (IMAGES + YOUTUBE)
+        ------------------------------------------------------------- */
+        .exp-thumb-video {
+            cursor: pointer;
+        }
+
+        .exp-thumb-play {
+            position: absolute;
+            left: 8px;
+            right: 8px;
+            top: 8px;
+            bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+
+        .exp-thumb-play::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(2, 6, 23, 0.55), rgba(2, 6, 23, 0.15) 65%, rgba(2, 6, 23, 0));
+            border-radius: 10px;
+        }
+
+        .exp-thumb-play i {
+            font-size: 22px;
+            text-shadow: 0 2px 10px rgba(2, 6, 23, 0.85);
+        }
+
+        .exp-lightbox-video {
+            display: block;
+            width: min(90vw, calc(80vh * 16 / 9));
+            aspect-ratio: 16 / 9;
+            margin: 0 auto 12px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #020617;
+            box-shadow: 0 24px 60px -15px rgba(2, 6, 23, 0.8);
+        }
+
+        .exp-lightbox-video iframe {
+            display: block;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        body.light-mode .exp-lightbox-video {
+            box-shadow: 0 24px 60px -15px rgba(15, 23, 42, 0.3);
+        }
         @media print {
             #tech-bg-canvas {
+                display: none !important;
+            }
+
+            .exp-gallery, .exp-lightbox, .exp-thumb, .exp-lightbox-video {
                 display: none !important;
             }
 
@@ -428,9 +791,9 @@
                 </div>
 
                 <!-- Actions Header (Sélecteur de Langue, Thème & Bouton PDF) -->
-                <div class="flex items-center space-x-2 sm:space-x-3">
+                <div class="header-actions flex items-center space-x-2 sm:space-x-3">
                     <!-- Bouton Bascule Langue FR / EN avec surbrillance -->
-                    <button id="lang-toggle" onclick="toggleLanguage()" class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold transition flex items-center gap-2 shadow active:scale-95" title="Changer de langue / Switch language">
+                    <button id="lang-toggle" onclick="toggleLanguage()" class="hidden sm:inline-flex px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold transition flex items-center gap-2 shadow active:scale-95" title="Changer de langue / Switch language">
                         <i class="fa-solid fa-globe text-sky-400"></i>
                         <div class="flex items-center gap-1 font-mono">
                             <span id="lang-fr" class="px-1.5 py-0.5 rounded text-[11px] transition-all bg-sky-500 text-slate-950 font-black shadow-sm">FR</span>
@@ -440,17 +803,22 @@
                     </button>
 
                     <!-- Bouton Bascule Thème Clair / Sombre -->
-                    <button id="theme-toggle" onclick="toggleTheme()" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-semibold transition flex items-center gap-2 shadow active:scale-95">
+                    <button id="theme-toggle" onclick="toggleTheme()" class="hidden sm:inline-flex px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-semibold transition flex items-center gap-2 shadow active:scale-95">
                         <i id="theme-icon" class="fa-solid fa-sun text-amber-400"></i>
                         <span id="theme-text" class="hidden sm:inline" data-fr="Mode Clair" data-en="Light Mode">Mode Clair</span>
                     </button>
 
                     <!-- Bouton d'action Téléchargement / Impression PDF -->
-                    <button onclick="exportPDF()" class="px-3.5 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs transition flex items-center gap-2 shadow-lg shadow-sky-500/20 active:scale-95">
+                    <button onclick="exportPDF()" class="hidden sm:inline-flex px-3.5 py-2 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs transition flex items-center gap-2 shadow-lg shadow-sky-500/20 active:scale-95">
                         <i class="fa-solid fa-file-pdf text-sm"></i>
                         <span data-fr="Télécharger / Imprimer PDF" data-en="Download / Print PDF">Télécharger / Imprimer PDF</span>
                     </button>
                 </div>
+                    <!-- Burger Menu (mobile) -->
+                    <button id="burger-toggle" onclick="toggleBurgerMenu()" class="burger-toggle inline-flex sm:hidden px-2.5 py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold transition flex items-center gap-2 shadow active:scale-95" title="Menu / Menu">
+                        <i id="burger-icon" class="fa-solid fa-bars text-sky-400 text-base"></i>
+                        <span data-fr="Menu" data-en="Menu">Menu</span>
+                    </button>
             </div>
         </header>
 
@@ -634,7 +1002,7 @@
                 <main class="lg:col-span-8 space-y-6">
 
                     <!-- EXPÉRIENCES PROFESSIONNELLES -->
-                    <section class="glass-card p-6 space-y-5">
+                    <section id="experiences" class="glass-card p-6 space-y-5">
                         <h2 class="text-lg font-bold text-white uppercase tracking-wider border-b border-slate-700/60 pb-3 flex items-center gap-2">
                             <i class="fa-solid fa-briefcase text-sky-400"></i> <span data-fr="Expériences Professionnelles" data-en="Professional Experience">Expériences Professionnelles</span>
                         </h2>
@@ -655,6 +1023,35 @@
                                     <li data-fr="Structuration des pipelines d'intégration de données (ETL/ELT), modélisation des entrepôts décisionnels et création de <strong>tableaux de bord analytiques</strong> métiers." data-en="Designing data integration pipelines (ETL/ELT), data warehouse modeling, and building business <strong>analytics dashboards</strong>.">Structuration des pipelines d'intégration de données (ETL/ELT), modélisation des entrepôts décisionnels et création de <strong>tableaux de bord analytiques</strong> métiers.</li>
                                     <li data-fr="Cadrage technique et accompagnement des directions dans la valorisation algorithmique et l'intégration de briques d'<strong>Intelligence Artificielle</strong>." data-en="Technical scoping and department support for algorithmic valuation and integration of <strong>Artificial Intelligence</strong> modules.">Cadrage technique et accompagnement des directions dans la valorisation algorithmique et l'intégration de briques d'<strong>Intelligence Artificielle</strong>.</li>
                                 </ul>
+
+                                <div class="exp-gallery-badge no-print inline-flex w-fit items-center gap-1" data-fr='<i class="fa-solid fa-camera text-sky-400"></i> 4 photos' data-en='<i class="fa-solid fa-camera text-sky-400"></i> 4 photos'>4 photos</div>
+                                <div class="exp-gallery" data-exp="1">
+                                    <div class="exp-gallery-inner">
+                                        <div class="exp-gallery-hd flex items-center gap-2">
+                                            <i class="fa-solid fa-images text-sky-400"></i>
+                                            <span class="text-white text-[11px] font-bold uppercase tracking-wide" data-fr="Galerie" data-en="Gallery">Galerie</span>
+                                            <span class="text-[10px] text-slate-400" data-fr="cliq. on a photo to enlarge" data-en="click a photo to enlarge">cliq. on a photo to enlarge</span>
+                                        </div>
+                                        <div class="exp-gallery-grid">
+                                            <div class="exp-thumb">
+                                                <img class="exp-thumb-img" src="img/experience-1-1.svg" alt="Tableau analytix ETL" loading="lazy" decoding="async">
+                                                <span class="exp-caption" data-fr="Tableau analytix ETL" data-en="Tableau analytix ETL">Tableau analytix ETL</span>
+                                            </div>
+                                            <div class="exp-thumb">
+                                                <img class="exp-thumb-img" src="img/experience-1-2.svg" alt="Entrepot decisionnel" loading="lazy" decoding="async">
+                                                <span class="exp-caption" data-fr="Entrepot decisionnel" data-en="Entrepot decisionnel">Entrepot decisionnel</span>
+                                            </div>
+                                            <div class="exp-thumb">
+                                                <img class="exp-thumb-img" src="img/experience-1-3.svg" alt="Pipeline ETL / ELT" loading="lazy" decoding="async">
+                                                <span class="exp-caption" data-fr="Pipeline ETL / ELT" data-en="Pipeline ETL / ELT">Pipeline ETL / ELT</span>
+                                            </div>
+                                            <div class="exp-thumb">
+                                                <img class="exp-thumb-img" src="img/experience-1-4.svg" alt="Dashboard BI" loading="lazy" decoding="async">
+                                                <span class="exp-caption" data-fr="Dashboard BI" data-en="Dashboard BI">Dashboard BI</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <!-- Exp 2 -->
@@ -671,6 +1068,35 @@
                                     <li data-fr="Conception de pipelines d'acquisition et de traitement d'images temps réel (<strong>OpenCV, PyTorch, YOLO</strong>)." data-en="Design of real-time image acquisition and processing pipelines (<strong>OpenCV, PyTorch, YOLO</strong>).">Conception de pipelines d'acquisition et de traitement d'images temps réel (<strong>OpenCV, PyTorch, YOLO</strong>).</li>
                                     <li data-fr="Génération automatisée de <strong>jeux de données synthétiques 3D</strong> pour le fine-tuning de modèles de vision en environnement contraint." data-en="Automated generation of <strong>3D synthetic datasets</strong> for fine-tuning computer vision models under constrained environments.">Génération automatisée de <strong>jeux de données synthétiques 3D</strong> pour le fine-tuning de modèles de vision en environnement contraint.</li>
                                 </ul>
+
+                                <div class="exp-gallery-badge no-print inline-flex w-fit items-center gap-1" data-fr='<i class="fa-solid fa-camera text-sky-400"></i> 4 photos' data-en='<i class="fa-solid fa-camera text-sky-400"></i> 4 photos'>4 photos</div>
+                                <div class="exp-gallery" data-exp="2">
+                                    <div class="exp-gallery-inner">
+                                        <div class="exp-gallery-hd flex items-center gap-2">
+                                            <i class="fa-solid fa-images text-sky-400"></i>
+                                            <span class="text-white text-[11px] font-bold uppercase tracking-wide" data-fr="Galerie" data-en="Gallery">Galerie</span>
+                                            <span class="text-[10px] text-slate-400" data-fr="cliq. on a photo to enlarge" data-en="click a photo to enlarge">cliq. on a photo to enlarge</span>
+                                        </div>
+                                        <div class="exp-gallery-grid">
+                                            <div class="exp-thumb">
+                                                <img class="exp-thumb-img" src="img/experience-2-1.svg" alt="Pipeline YOLO / OpenCV" loading="lazy" decoding="async">
+                                                <span class="exp-caption" data-fr="Pipeline YOLO / OpenCV" data-en="Pipeline YOLO / OpenCV">Pipeline YOLO / OpenCV</span>
+                                            </div>
+                                            <div class="exp-thumb">
+                                                <img class="exp-thumb-img" src="img/experience-2-2.svg" alt="Dataset synthetics 3D" loading="lazy" decoding="async">
+                                                <span class="exp-caption" data-fr="Dataset synthetics 3D" data-en="Dataset synthetics 3D">Dataset synthetics 3D</span>
+                                            </div>
+                                            <div class="exp-thumb">
+                                                <img class="exp-thumb-img" src="img/experience-2-3.svg" alt="Calibrage projectif 2D/3D" loading="lazy" decoding="async">
+                                                <span class="exp-caption" data-fr="Calibrage projectif 2D/3D" data-en="Calibrage projectif 2D/3D">Calibrage projectif 2D/3D</span>
+                                            </div>
+                                            <div class="exp-thumb">
+                                                <img class="exp-thumb-img" src="img/experience-2-4.svg" alt="Report consulting" loading="lazy" decoding="async">
+                                                <span class="exp-caption" data-fr="Report consulting" data-en="Report consulting">Report consulting</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <!-- Exp 3 -->
@@ -687,6 +1113,36 @@
                                     <li data-fr="Mise en place de architectures <strong>MLOps & CI/CD</strong> (Docker, GitLab CI) pour l'automatisation du déploiement des modèles d'<strong>Intelligence Artificielle</strong>." data-en="Implementation of <strong>MLOps & CI/CD</strong> architectures (Docker, GitLab CI) for automated deployment of <strong>Artificial Intelligence</strong> models.">Mise en place de architectures <strong>MLOps & CI/CD</strong> (Docker, GitLab CI) pour l'automatisation du déploiement des modèles d'<strong>Intelligence Artificielle</strong>.</li>
                                     <li data-fr="Supervision des environnements de production et intégration continue pour l'ensemble des services de la Polynésie Française." data-en="Supervision of production environments and continuous integration for all government services in French Polynesia.">Supervision des environnements de production et intégration continue pour l'ensemble des services de la Polynésie Française.</li>
                                 </ul>
+
+                                <div class="exp-gallery-badge no-print inline-flex w-fit items-center gap-1" data-fr='<i class="fa-solid fa-photo-film text-sky-400"></i> 4 media' data-en='<i class="fa-solid fa-photo-film text-sky-400"></i> 4 media'>4 media</div>
+                                <div class="exp-gallery" data-exp="3">
+                                    <div class="exp-gallery-inner">
+                                        <div class="exp-gallery-hd flex items-center gap-2">
+                                            <i class="fa-solid fa-images text-sky-400"></i>
+                                            <span class="text-white text-[11px] font-bold uppercase tracking-wide" data-fr="Galerie" data-en="Gallery">Galerie</span>
+                                            <span class="text-[10px] text-slate-400" data-fr="cliq. on a media to enlarge / play" data-en="click a media to enlarge / play">cliq. on a media to enlarge / play</span>
+                                        </div>
+                                        <div class="exp-gallery-grid">
+                                            <div class="exp-thumb exp-thumb-video" data-video="MPU2HistivI">
+                                                <img class="exp-thumb-img" src="https://i.ytimg.com/vi/MPU2HistivI/hqdefault.jpg" alt="YOLOv3 detection demo" loading="lazy" decoding="async">
+                                                <span class="exp-caption" data-fr="YOLOv3 detection demo" data-en="YOLOv3 detection demo">YOLOv3 detection demo</span>
+                                                <span class="exp-thumb-play"><i class="fa-solid fa-play text-white"></i></span>
+                                            </div>
+                                            <div class="exp-thumb">
+                                                <img class="exp-thumb-img" src="img/experience-3-1.svg" alt="Learning pipeline PyTorch" loading="lazy" decoding="async">
+                                                <span class="exp-caption" data-fr="Learning pipeline PyTorch" data-en="Learning pipeline PyTorch">Learning pipeline PyTorch</span>
+                                            </div>
+                                            <div class="exp-thumb">
+                                                <img class="exp-thumb-img" src="img/experience-3-2.svg" alt="MLOps CI/CD" loading="lazy" decoding="async">
+                                                <span class="exp-caption" data-fr="MLOps CI/CD" data-en="MLOps CI/CD">MLOps CI/CD</span>
+                                            </div>
+                                            <div class="exp-thumb">
+                                                <img class="exp-thumb-img" src="img/experience-3-3.svg" alt="Inference at scale" loading="lazy" decoding="async">
+                                                <span class="exp-caption" data-fr="Inference at scale" data-en="Inference at scale">Inference at scale</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <!-- Exp 4 -->
@@ -704,6 +1160,35 @@
                                     <li data-fr="Traitement et segmentation de <strong>nuages de points 3D (PCL)</strong> pour la détection de formes géométriques complexes et le suivi sur casques <strong>HoloLens</strong>." data-en="Processing and segmentation of <strong>3D point clouds (PCL)</strong> for complex geometric shape detection and tracking on <strong>HoloLens</strong> headsets.">Traitement et segmentation de <strong>nuages de points 3D (PCL)</strong> pour la détection de formes géométriques complexes et le suivi sur casques <strong>HoloLens</strong>.</li>
                                     <li data-fr="Conception de moteurs d'<strong>OCR Deep Learning (C++ / OpenCV)</strong> optimisés pour la lecture haute vitesse de marquages industriels en conditions sévères." data-en="Design of <strong>Deep Learning OCR engines (C++ / OpenCV)</strong> optimized for high-speed industrial marking reading under harsh conditions.">Conception de moteurs d'<strong>OCR Deep Learning (C++ / OpenCV)</strong> optimisés pour la lecture haute vitesse de marquages industriels en conditions sévères.</li>
                                 </ul>
+
+                                <div class="exp-gallery-badge no-print inline-flex w-fit items-center gap-1" data-fr='<i class="fa-solid fa-camera text-sky-400"></i> 4 photos' data-en='<i class="fa-solid fa-camera text-sky-400"></i> 4 photos'>4 photos</div>
+                                <div class="exp-gallery" data-exp="4">
+                                    <div class="exp-gallery-inner">
+                                        <div class="exp-gallery-hd flex items-center gap-2">
+                                            <i class="fa-solid fa-images text-sky-400"></i>
+                                            <span class="text-white text-[11px] font-bold uppercase tracking-wide" data-fr="Galerie" data-en="Gallery">Galerie</span>
+                                            <span class="text-[10px] text-slate-400" data-fr="cliq. on a photo to enlarge" data-en="click a photo to enlarge">cliq. on a photo to enlarge</span>
+                                        </div>
+                                        <div class="exp-gallery-grid">
+                                            <div class="exp-thumb">
+                                                <img class="exp-thumb-img" src="img/experience-4-1.svg" alt="AR industrial HoloLens" loading="lazy" decoding="async">
+                                                <span class="exp-caption" data-fr="AR industrial HoloLens" data-en="AR industrial HoloLens">AR industrial HoloLens</span>
+                                            </div>
+                                            <div class="exp-thumb">
+                                                <img class="exp-thumb-img" src="img/experience-4-2.svg" alt="Segmentation nuages 3D PCL" loading="lazy" decoding="async">
+                                                <span class="exp-caption" data-fr="Segmentation nuages 3D PCL" data-en="Segmentation nuages 3D PCL">Segmentation nuages 3D PCL</span>
+                                            </div>
+                                            <div class="exp-thumb">
+                                                <img class="exp-thumb-img" src="img/experience-4-3.svg" alt="OCR industrial high speed" loading="lazy" decoding="async">
+                                                <span class="exp-caption" data-fr="OCR industrial high speed" data-en="OCR industrial high speed">OCR industrial high speed</span>
+                                            </div>
+                                            <div class="exp-thumb">
+                                                <img class="exp-thumb-img" src="img/experience-4-4.svg" alt="Calibrage camera / videoprojector" loading="lazy" decoding="async">
+                                                <span class="exp-caption" data-fr="Calibrage camera / videoprojector" data-en="Calibrage camera / videoprojector">Calibrage camera / videoprojector</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <!-- Exp 5 -->
@@ -720,6 +1205,36 @@
                                     <li data-fr="Implémentation d'algorithmes de détection de <strong>collisions 3D complexes</strong>, d'intégration mécanique et de rendu graphique <strong>OpenGL</strong>." data-en="Implementation of complex <strong>3D collision detection</strong>, mechanical integration algorithms, and <strong>OpenGL</strong> graphic rendering.">Implémentation d'algorithmes de détection de <strong>collisions 3D complexes</strong>, d'intégration mécanique et de rendu graphique <strong>OpenGL</strong>.</li>
                                     <li data-fr="Optimisation des maillages dynamiques 3D et accélération calculatoire pour garantir un traitement fluide à 60 FPS." data-en="Optimization of dynamic 3D meshes and computational acceleration to guarantee smooth 60 FPS execution.">Optimisation des maillages dynamiques 3D et accélération calculatoire pour garantir un traitement fluide à 60 FPS.</li>
                                 </ul>
+
+                                <div class="exp-gallery-badge no-print inline-flex w-fit items-center gap-1" data-fr='<i class="fa-solid fa-photo-film text-sky-400"></i> 4 media' data-en='<i class="fa-solid fa-photo-film text-sky-400"></i> 4 media'>4 media</div>
+                                <div class="exp-gallery" data-exp="5">
+                                    <div class="exp-gallery-inner">
+                                        <div class="exp-gallery-hd flex items-center gap-2">
+                                            <i class="fa-solid fa-images text-sky-400"></i>
+                                            <span class="text-white text-[11px] font-bold uppercase tracking-wide" data-fr="Galerie" data-en="Gallery">Galerie</span>
+                                            <span class="text-[10px] text-slate-400" data-fr="cliq. on a media to enlarge / play" data-en="click a media to enlarge / play">cliq. on a media to enlarge / play</span>
+                                        </div>
+                                        <div class="exp-gallery-grid">
+                                            <div class="exp-thumb exp-thumb-video" data-video="yOJIRArZeig">
+                                                <img class="exp-thumb-img" src="https://i.ytimg.com/vi/yOJIRArZeig/hqdefault.jpg" alt="Object detection in C++ (darknet)" loading="lazy" decoding="async">
+                                                <span class="exp-caption" data-fr="Object detection in C++ (darknet)" data-en="Object detection in C++ (darknet)">Object detection in C++ (darknet)</span>
+                                                <span class="exp-thumb-play"><i class="fa-solid fa-play text-white"></i></span>
+                                            </div>
+                                            <div class="exp-thumb">
+                                                <img class="exp-thumb-img" src="img/experience-5-1.svg" alt="Simulation 3D temps real" loading="lazy" decoding="async">
+                                                <span class="exp-caption" data-fr="Simulation 3D temps real" data-en="Simulation 3D temps real">Simulation 3D temps real</span>
+                                            </div>
+                                            <div class="exp-thumb">
+                                                <img class="exp-thumb-img" src="img/experience-5-2.svg" alt="Collisions 3D complex" loading="lazy" decoding="async">
+                                                <span class="exp-caption" data-fr="Collisions 3D complex" data-en="Collisions 3D complex">Collisions 3D complex</span>
+                                            </div>
+                                            <div class="exp-thumb">
+                                                <img class="exp-thumb-img" src="img/experience-5-3.svg" alt="Mesh dynamiques 60 FPS" loading="lazy" decoding="async">
+                                                <span class="exp-caption" data-fr="Mesh dynamiques 60 FPS" data-en="Mesh dynamiques 60 FPS">Mesh dynamiques 60 FPS</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <!-- Exp 6 -->
@@ -737,6 +1252,35 @@
                                     <li data-fr="Développement du moteur haptique à <strong>retour d'effort 6-DOF</strong> pour la simulation haptique haute fidélité des tissus osseux et des outils chirurgicaux." data-en="Development of a <strong>6-DOF force-feedback haptic engine</strong> for high-fidelity tactile simulation of bone tissues and surgical tools.">Développement du moteur haptique à <strong>retour d'effort 6-DOF</strong> pour la simulation haptique haute fidélité des tissus osseux et des outils chirurgicaux.</li>
                                     <li data-fr="Chef de projet R&D des simulateurs <strong>SpineLive</strong> (chirurgie du rachis) et <strong>Virtual Alti-Phob</strong> (réalité virtuelle thérapeutique)." data-en="R&D project manager for <strong>SpineLive</strong> (spine surgery) and <strong>Virtual Alti-Phob</strong> (therapeutic VR) simulators.">Chef de projet R&D des simulateurs <strong>SpineLive</strong> (chirurgie du rachis) et <strong>Virtual Alti-Phob</strong> (réalité virtuelle thérapeutique).</li>
                                 </ul>
+
+                                <div class="exp-gallery-badge no-print inline-flex w-fit items-center gap-1" data-fr='<i class="fa-solid fa-camera text-sky-400"></i> 4 photos' data-en='<i class="fa-solid fa-camera text-sky-400"></i> 4 photos'>4 photos</div>
+                                <div class="exp-gallery" data-exp="6">
+                                    <div class="exp-gallery-inner">
+                                        <div class="exp-gallery-hd flex items-center gap-2">
+                                            <i class="fa-solid fa-images text-sky-400"></i>
+                                            <span class="text-white text-[11px] font-bold uppercase tracking-wide" data-fr="Galerie" data-en="Gallery">Galerie</span>
+                                            <span class="text-[10px] text-slate-400" data-fr="cliq. on a photo to enlarge" data-en="click a photo to enlarge">cliq. on a photo to enlarge</span>
+                                        </div>
+                                        <div class="exp-gallery-grid">
+                                            <div class="exp-thumb">
+                                                <img class="exp-thumb-img" src="img/experience-6-1.svg" alt="Simulator VirTeaSy 3D" loading="lazy" decoding="async">
+                                                <span class="exp-caption" data-fr="Simulator VirTeaSy 3D" data-en="Simulator VirTeaSy 3D">Simulator VirTeaSy 3D</span>
+                                            </div>
+                                            <div class="exp-thumb">
+                                                <img class="exp-thumb-img" src="img/experience-6-2.svg" alt="Rendu volumique GPU DICOM" loading="lazy" decoding="async">
+                                                <span class="exp-caption" data-fr="Rendu volumique GPU DICOM" data-en="Rendu volumique GPU DICOM">Rendu volumique GPU DICOM</span>
+                                            </div>
+                                            <div class="exp-thumb">
+                                                <img class="exp-thumb-img" src="img/experience-6-3.svg" alt="Haptic engine 6-DOF" loading="lazy" decoding="async">
+                                                <span class="exp-caption" data-fr="Haptic engine 6-DOF" data-en="Haptic engine 6-DOF">Haptic engine 6-DOF</span>
+                                            </div>
+                                            <div class="exp-thumb">
+                                                <img class="exp-thumb-img" src="img/experience-6-4.svg" alt="Simulator SpineLive" loading="lazy" decoding="async">
+                                                <span class="exp-caption" data-fr="Simulator SpineLive" data-en="Simulator SpineLive">Simulator SpineLive</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                         </div>
@@ -763,10 +1307,40 @@
                                 <p class="text-xs text-slate-300 leading-relaxed" data-fr="Système de détection et suivi de fléchettes en temps réel sur cible classique. Modèle YOLO fine-tuné à 100% sur un jeu de données synthétiques 3D généré sur mesure (méthode <i>sim-to-real</i>)." data-en="Real-time dart detection and tracking system on traditional dartboards. YOLO model 100% fine-tuned on custom-generated 3D synthetic datasets (<i>sim-to-real</i> method).">
                                     Système de détection et suivi de fléchettes en temps réel sur cible classique. Modèle YOLO fine-tuné à 100% sur un jeu de données synthétiques 3D généré sur mesure (méthode <i>sim-to-real</i>).
                                 </p>
+
                                 <div class="flex flex-wrap gap-1 pt-1">
                                     <span class="text-[10px] px-2 py-0.5 rounded bg-sky-500/10 text-sky-400 border border-sky-500/20 font-mono">YOLO</span>
                                     <span class="text-[10px] px-2 py-0.5 rounded bg-sky-500/10 text-sky-400 border border-sky-500/20 font-mono">SynthData 3D</span>
                                     <span class="text-[10px] px-2 py-0.5 rounded bg-sky-500/10 text-sky-400 border border-sky-500/20 font-mono">Python</span>
+                                </div>
+                                <div class="exp-gallery-badge no-print inline-flex w-fit items-center gap-1" data-fr='<i class="fa-solid fa-photo-film text-sky-400"></i> 4 media' data-en='<i class="fa-solid fa-photo-film text-sky-400"></i> 4 media'>4 media</div>
+                                <div class="exp-gallery" data-slug="dartnet">
+                                    <div class="exp-gallery-inner">
+                                        <div class="exp-gallery-hd flex items-center gap-2">
+                                            <i class="fa-solid fa-photo-film text-sky-400"></i>
+                                            <span class="text-white text-[11px] font-bold uppercase tracking-wide" data-fr="Galerie" data-en="Gallery">Galerie</span>
+                                            <span class="text-[10px] text-slate-400" data-fr="cliq. to enlarge / play" data-en="click to enlarge / play">cliq. to enlarge / play</span>
+                                        </div>
+                                        <div class="exp-gallery-grid">
+                                            <div class="exp-thumb">
+                                                <img class="exp-thumb-img" src="img/dartnet-1.svg" alt="DartNet on a live target" loading="lazy" decoding="async">
+                                                <span class="exp-caption" data-fr="DartNet on a live target" data-en="DartNet on a live target">DartNet on a live target</span>
+                                            </div>
+                                            <div class="exp-thumb">
+                                                <img class="exp-thumb-img" src="img/dartnet-2.svg" alt="Synthetic 3D dartboard dataset" loading="lazy" decoding="async">
+                                                <span class="exp-caption" data-fr="Synthetic 3D dartboard dataset" data-en="Synthetic 3D dartboard dataset">Synthetic 3D dartboard dataset</span>
+                                            </div>
+                                            <div class="exp-thumb exp-thumb-video" data-video="rX2smOBUUUs">
+                                                <img class="exp-thumb-img" src="https://i.ytimg.com/vi/rX2smOBUUUs/hqdefault.jpg" alt="Darknet / YOLOv3 detection" loading="lazy" decoding="async">
+                                                <span class="exp-caption" data-fr="Darknet / YOLOv3 detection" data-en="Darknet / YOLOv3 detection">Darknet / YOLOv3 detection</span>
+                                                <span class="exp-thumb-play"><i class="fa-solid fa-play text-white"></i></span>
+                                            </div>
+                                            <div class="exp-thumb">
+                                                <img class="exp-thumb-img" src="img/dartnet-3.svg" alt="Board calibration &amp; scoring" loading="lazy" decoding="async">
+                                                <span class="exp-caption" data-fr="Board calibration &amp; scoring" data-en="Board calibration &amp; scoring">Board calibration & scoring</span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -781,10 +1355,40 @@
                                 <p class="text-xs text-slate-300 leading-relaxed" data-fr="Simulateur de flipper interactif physique en Réalité Virtuelle développé sous Unity3D & C# avec gestion fine du retour physique et des collisions." data-en="Interactive physics pinball simulator in Virtual Reality developed with Unity3D & C# featuring fine-tuned physics response and collisions.">
                                     Simulateur de flipper interactif physique en Réalité Virtuelle développé sous Unity3D & C# avec gestion fine du retour physique et des collisions.
                                 </p>
+
                                 <div class="flex flex-wrap gap-1 pt-1">
                                     <span class="text-[10px] px-2 py-0.5 rounded bg-sky-500/10 text-sky-400 border border-sky-500/20 font-mono">Unity3D</span>
                                     <span class="text-[10px] px-2 py-0.5 rounded bg-sky-500/10 text-sky-400 border border-sky-500/20 font-mono">C#</span>
                                     <span class="text-[10px] px-2 py-0.5 rounded bg-sky-500/10 text-sky-400 border border-sky-500/20 font-mono">VR / Oculus</span>
+                                </div>
+                                <div class="exp-gallery-badge no-print inline-flex w-fit items-center gap-1" data-fr='<i class="fa-solid fa-photo-film text-sky-400"></i> 4 media' data-en='<i class="fa-solid fa-photo-film text-sky-400"></i> 4 media'>4 media</div>
+                                <div class="exp-gallery" data-slug="unit3d-pinball">
+                                    <div class="exp-gallery-inner">
+                                        <div class="exp-gallery-hd flex items-center gap-2">
+                                            <i class="fa-solid fa-photo-film text-sky-400"></i>
+                                            <span class="text-white text-[11px] font-bold uppercase tracking-wide" data-fr="Galerie" data-en="Gallery">Galerie</span>
+                                            <span class="text-[10px] text-slate-400" data-fr="cliq. to enlarge / play" data-en="click to enlarge / play">cliq. to enlarge / play</span>
+                                        </div>
+                                        <div class="exp-gallery-grid">
+                                            <div class="exp-thumb">
+                                                <img class="exp-thumb-img" src="img/unit3d-pinball-1.svg" alt="Unity3D pinball physics" loading="lazy" decoding="async">
+                                                <span class="exp-caption" data-fr="Unity3D pinball physics" data-en="Unity3D pinball physics">Unity3D pinball physics</span>
+                                            </div>
+                                            <div class="exp-thumb exp-thumb-video" data-video="0gzakhQgptI">
+                                                <img class="exp-thumb-img" src="https://i.ytimg.com/vi/0gzakhQgptI/hqdefault.jpg" alt="Unity3D pinball build walkthrough" loading="lazy" decoding="async">
+                                                <span class="exp-caption" data-fr="Unity3D pinball build walkthrough" data-en="Unity3D pinball build walkthrough">Unity3D pinball build walkthrough</span>
+                                                <span class="exp-thumb-play"><i class="fa-solid fa-play text-white"></i></span>
+                                            </div>
+                                            <div class="exp-thumb">
+                                                <img class="exp-thumb-img" src="img/unit3d-pinball-2.svg" alt="VR capture &amp; tracking" loading="lazy" decoding="async">
+                                                <span class="exp-caption" data-fr="VR capture &amp; tracking" data-en="VR capture &amp; tracking">VR capture & tracking</span>
+                                            </div>
+                                            <div class="exp-thumb">
+                                                <img class="exp-thumb-img" src="img/unit3d-pinball-3.svg" alt="Oculus Rift build" loading="lazy" decoding="async">
+                                                <span class="exp-caption" data-fr="Oculus Rift build" data-en="Oculus Rift build">Oculus Rift build</span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -1245,6 +1849,189 @@
 
             showToast((currentLang === 'fr' ? "Filtre appliqué : " : "Filter applied: ") + skillName);
         }
+
+        /* -------------------------------------------------------------
+           GALLERY OF WORK EXPERIENCES (OPEN + LIGHTBOX)
+        ------------------------------------------------------------- */
+        let lightboxElt = null;
+
+        function ensureLightbox() {
+            if (lightboxElt) return;
+            lightboxElt = document.createElement('div');
+            lightboxElt.className = 'exp-lightbox';
+
+            const close = document.createElement('button');
+            close.className = 'exp-lightbox-close';
+            close.innerHTML = '<i class="fa-solid fa-times"></i> Close';
+            close.addEventListener('click', closeLightbox);
+            lightboxElt.appendChild(close);
+
+            const stage = document.createElement('div');
+            stage.className = 'exp-lightbox-stage';
+            lightboxElt.appendChild(stage);
+
+            document.body.appendChild(lightboxElt);
+        }
+
+        function openLightbox(thumb) {
+            ensureLightbox();
+            stopLightboxMedia();
+            const stage = lightboxElt.querySelector('.exp-lightbox-stage');
+            const img = thumb.querySelector('img');
+            const caption = thumb.querySelector('.exp-caption');
+            const videoId = thumb.getAttribute('data-video');
+            stage.innerHTML = '';
+
+            if (videoId) {
+                const frame = document.createElement('div');
+                frame.className = 'exp-lightbox-video';
+                const player = document.createElement('iframe');
+                player.src = 'https://www.youtube-nocookie.com/embed/' + videoId + '?rel=0';
+                player.title = caption ? caption.textContent : 'Video';
+                player.setAttribute('allow', 'accelerated-picture-in-picture, autoplay, encrypted-media, picture-in-picture');
+                player.setAttribute('allowfullscreen', '');
+                player.setAttribute('loading', 'lazy');
+                frame.appendChild(player);
+                stage.appendChild(frame);
+            } else if (img) {
+                const zoomed = document.createElement('img');
+                zoomed.className = 'exp-lightbox-img';
+                zoomed.src = img.getAttribute('data-full') || img.src;
+                zoomed.alt = img.alt;
+                zoomed.addEventListener('click', closeLightbox);
+                stage.appendChild(zoomed);
+            }
+
+            if (caption) {
+                const cap = document.createElement('p');
+                cap.className = 'exp-lightbox-cap';
+                cap.textContent = caption.textContent;
+                stage.appendChild(cap);
+            }
+
+            lightboxElt.classList.add('open');
+        }
+
+        /* leaving the lightbox must also silence any player: an iframe that is
+           merely hidden (display: none on .exp-lightbox) keeps playing, so the
+           document is unloaded first, then dropped from the DOM */
+        function stopLightboxMedia() {
+            if (!lightboxElt) return;
+            const stage = lightboxElt.querySelector('.exp-lightbox-stage');
+            if (!stage) return;
+
+            stage.querySelectorAll('iframe').forEach((player) => {
+                player.src = 'about:blank';
+            });
+            stage.innerHTML = '';
+        }
+
+        function closeLightbox() {
+            if (!lightboxElt) return;
+            if (!lightboxElt.classList.contains('open')) return;
+            lightboxElt.classList.remove('open');
+            stopLightboxMedia();
+            showToast(currentLang === 'fr' ? "Media closed" : "Media closed");
+        }
+
+        function toggleGallery(gallery) {
+            if (gallery.classList.contains('open')) {
+                gallery.classList.remove('open');
+                showToast(currentLang === 'fr' ? "Galerie closed" : "Gallery closed");
+            } else {
+                gallery.classList.add('open');
+                showToast(currentLang === 'fr' ? "Galerie opened" : "Gallery opened");
+            }
+        }
+
+        document.body.addEventListener('click', (e) => {
+            if (e.target.matches('iframe')) return;
+
+            if (e.target.closest('.exp-lightbox')) {
+                closeLightbox();
+                return;
+            }
+
+            const thumb = e.target.closest('.exp-thumb');
+            if (thumb) {
+                openLightbox(thumb);
+                return;
+            }
+
+            /* the gallery header is the switch: open <-> close */
+            const header = e.target.closest('.exp-gallery-hd');
+            if (header) {
+                toggleGallery(header.closest('.exp-gallery'));
+                return;
+            }
+
+            const badge = e.target.closest('.exp-gallery-badge');
+            if (badge) {
+                const host = badge.closest('.data-card');
+                const target = host ? host.querySelector('.exp-gallery') : null;
+                if (target) toggleGallery(target);
+                return;
+            }
+
+            /* the whole card is the switch: a click on it opens or closes its
+               gallery, unless the click lands on something that already has
+               its own meaning (link, button, skill chip, media preview, or
+               a media preview or the gallery header, that own their click) */
+            const card = e.target.closest('.data-card');
+            if (card) {
+                const target = card.querySelector('.exp-gallery');
+                if (target && !nestedClick(e.target, card)) toggleGallery(target);
+            }
+        });
+
+        /* walk from the clicked node up to the card: a nested interactive
+           element owns the click, the card must not toggle its gallery */
+        function nestedClick(target, card) {
+            for (let node = target; node && node !== card; node = node.parentNode) {
+                if (node.tagName === 'A' || node.tagName === 'BUTTON') return true;
+                if (node.getAttribute('onclick') !== null) return true;
+                if (node.matches('.exp-thumb, .exp-gallery-hd, .exp-gallery-badge, .skill-badge')) return true;
+            }
+            return false;
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+
+        /* -------------------------------------------------------------
+           BURGER MENU (SMALL SCREENS)
+        ------------------------------------------------------------- */
+        function toggleBurgerMenu() {
+            const actions = document.querySelector('.header-actions');
+            if (!actions) return;
+
+            const icon = document.getElementById('burger-icon');
+            if (icon) {
+                if (actions.classList.contains('open')) icon.className = 'fa-solid fa-bars text-sky-400 text-base';
+                else icon.className = 'fa-solid fa-xmark text-sky-400 text-base';
+            }
+
+            if (actions.classList.contains('open')) {
+                actions.classList.remove('open');
+                showToast(currentLang === 'fr' ? "Menu closed" : "Menu closed");
+            } else {
+                actions.classList.add('open');
+                showToast(currentLang === 'fr' ? "Menu opened" : "Menu opened");
+            }
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const actions = document.querySelector('.header-actions');
+                if (actions && actions.classList.contains('open')) {
+                    actions.classList.remove('open');
+                    const icon = document.getElementById('burger-icon');
+                    if (icon) icon.className = 'fa-solid fa-bars text-sky-400 text-base';
+                }
+            }
+        });
+
     </script>
 </body>
 </html>
