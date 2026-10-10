@@ -406,6 +406,72 @@
 
 
         /* -------------------------------------------------------------
+           HOVER POP + CORNER BADGE
+        ------------------------------------------------------------- */
+        /* the badge leaves the text flow and hugs the bottom-right corner of
+           its card: it straddles the corner and is lifted by its shadow, so it
+           reads as a tab above the card, whatever the card holds inside */
+        .exp-gallery-badge.no-print {
+            display: flex;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: 0;
+            margin-top: 3px;
+            margin-bottom: -8px;
+            padding: 3px 11px;
+            background: rgba(14, 163, 233, 0.18);
+            border: 1px solid rgba(56, 189, 248, 0.45);
+            box-shadow: 0 6px 16px -6px rgba(2, 6, 23, 0.65);
+            transition: transform 0.25s cubic-bezier(0.32, 0.72, 0.24, 1), box-shadow 0.25s ease;
+        }
+
+        .exp-gallery-badge.no-print:hover {
+            transform: translateY(-3px) scale(1.06);
+            box-shadow: 0 10px 22px -6px rgba(2, 6, 23, 0.7);
+        }
+
+        body.light-mode .exp-gallery-badge {
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            box-shadow: 0 4px 10px -4px rgba(15, 23, 42, 0.25);
+        }
+
+        /* the fold indicator: chevron down while folded, up once unfolded */
+        .badge-fold {
+            display: inline-block;
+            font-size: 9px;
+            margin-left: 2px;
+            transition: transform 0.35s cubic-bezier(0.32, 0.72, 0.24, 1);
+        }
+
+        .exp-gallery-badge.fold-open .badge-fold {
+            transform: rotate(180deg);
+        }
+
+        /* a card owning a gallery pops when the pointer is over it */
+        .data-card:has(.exp-gallery) {
+            transition: transform 0.25s cubic-bezier(0.32, 0.72, 0.24, 1), box-shadow 0.25s ease;
+        }
+
+        .data-card:has(.exp-gallery):hover {
+            transform: translateY(-5px);
+            box-shadow: 0 14px 28px -10px rgba(2, 6, 23, 0.7);
+        }
+
+        body.light-mode .data-card:has(.exp-gallery):hover {
+            box-shadow: 0 12px 24px -10px rgba(15, 23, 42, 0.22);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .data-card:has(.exp-gallery),
+            .data-card:has(.exp-gallery):hover,
+            .exp-gallery-badge.no-print,
+            .exp-gallery-badge.no-print:hover {
+                transform: none;
+            }
+        }
+
+        /* -------------------------------------------------------------
            STOP MEDIA ON LIGHTBOX EXIT + CLICK CURSOR ON GALLERYABLE ITEMS
         ------------------------------------------------------------- */
         /* everything that opens or closes a gallery asks for a click */
@@ -1024,7 +1090,7 @@
                                     <li data-fr="Cadrage technique et accompagnement des directions dans la valorisation algorithmique et l'intégration de briques d'<strong>Intelligence Artificielle</strong>." data-en="Technical scoping and department support for algorithmic valuation and integration of <strong>Artificial Intelligence</strong> modules.">Cadrage technique et accompagnement des directions dans la valorisation algorithmique et l'intégration de briques d'<strong>Intelligence Artificielle</strong>.</li>
                                 </ul>
 
-                                <div class="exp-gallery-badge no-print inline-flex w-fit items-center gap-1" data-fr='<i class="fa-solid fa-camera text-sky-400"></i> 4 photos' data-en='<i class="fa-solid fa-camera text-sky-400"></i> 4 photos'>4 photos</div>
+                                <div class="exp-gallery-badge no-print inline-flex w-fit items-center gap-1" data-fr='<i class="fa-solid fa-camera text-sky-400"></i> 4 photos <i class="badge-fold fa-solid fa-chevron-down text-sky-400"></i>' data-en='<i class="fa-solid fa-camera text-sky-400"></i> 4 photos <i class="badge-fold fa-solid fa-chevron-down text-sky-400"></i>'><i class="fa-solid fa-camera text-sky-400"></i> 4 photos <i class="badge-fold fa-solid fa-chevron-down text-sky-400"></i></div>
                                 <div class="exp-gallery" data-exp="1">
                                     <div class="exp-gallery-inner">
                                         <div class="exp-gallery-hd flex items-center gap-2">
@@ -1069,7 +1135,7 @@
                                     <li data-fr="Génération automatisée de <strong>jeux de données synthétiques 3D</strong> pour le fine-tuning de modèles de vision en environnement contraint." data-en="Automated generation of <strong>3D synthetic datasets</strong> for fine-tuning computer vision models under constrained environments.">Génération automatisée de <strong>jeux de données synthétiques 3D</strong> pour le fine-tuning de modèles de vision en environnement contraint.</li>
                                 </ul>
 
-                                <div class="exp-gallery-badge no-print inline-flex w-fit items-center gap-1" data-fr='<i class="fa-solid fa-camera text-sky-400"></i> 4 photos' data-en='<i class="fa-solid fa-camera text-sky-400"></i> 4 photos'>4 photos</div>
+                                <div class="exp-gallery-badge no-print inline-flex w-fit items-center gap-1" data-fr='<i class="fa-solid fa-camera text-sky-400"></i> 4 photos <i class="badge-fold fa-solid fa-chevron-down text-sky-400"></i>' data-en='<i class="fa-solid fa-camera text-sky-400"></i> 4 photos <i class="badge-fold fa-solid fa-chevron-down text-sky-400"></i>'><i class="fa-solid fa-camera text-sky-400"></i> 4 photos <i class="badge-fold fa-solid fa-chevron-down text-sky-400"></i></div>
                                 <div class="exp-gallery" data-exp="2">
                                     <div class="exp-gallery-inner">
                                         <div class="exp-gallery-hd flex items-center gap-2">
@@ -1114,7 +1180,7 @@
                                     <li data-fr="Supervision des environnements de production et intégration continue pour l'ensemble des services de la Polynésie Française." data-en="Supervision of production environments and continuous integration for all government services in French Polynesia.">Supervision des environnements de production et intégration continue pour l'ensemble des services de la Polynésie Française.</li>
                                 </ul>
 
-                                <div class="exp-gallery-badge no-print inline-flex w-fit items-center gap-1" data-fr='<i class="fa-solid fa-photo-film text-sky-400"></i> 4 media' data-en='<i class="fa-solid fa-photo-film text-sky-400"></i> 4 media'>4 media</div>
+                                <div class="exp-gallery-badge no-print inline-flex w-fit items-center gap-1" data-fr='<i class="fa-solid fa-photo-film text-sky-400"></i> 4 media <i class="badge-fold fa-solid fa-chevron-down text-sky-400"></i>' data-en='<i class="fa-solid fa-photo-film text-sky-400"></i> 4 media <i class="badge-fold fa-solid fa-chevron-down text-sky-400"></i>'><i class="fa-solid fa-photo-film text-sky-400"></i> 4 media <i class="badge-fold fa-solid fa-chevron-down text-sky-400"></i></div>
                                 <div class="exp-gallery" data-exp="3">
                                     <div class="exp-gallery-inner">
                                         <div class="exp-gallery-hd flex items-center gap-2">
@@ -1161,7 +1227,7 @@
                                     <li data-fr="Conception de moteurs d'<strong>OCR Deep Learning (C++ / OpenCV)</strong> optimisés pour la lecture haute vitesse de marquages industriels en conditions sévères." data-en="Design of <strong>Deep Learning OCR engines (C++ / OpenCV)</strong> optimized for high-speed industrial marking reading under harsh conditions.">Conception de moteurs d'<strong>OCR Deep Learning (C++ / OpenCV)</strong> optimisés pour la lecture haute vitesse de marquages industriels en conditions sévères.</li>
                                 </ul>
 
-                                <div class="exp-gallery-badge no-print inline-flex w-fit items-center gap-1" data-fr='<i class="fa-solid fa-camera text-sky-400"></i> 4 photos' data-en='<i class="fa-solid fa-camera text-sky-400"></i> 4 photos'>4 photos</div>
+                                <div class="exp-gallery-badge no-print inline-flex w-fit items-center gap-1" data-fr='<i class="fa-solid fa-camera text-sky-400"></i> 4 photos <i class="badge-fold fa-solid fa-chevron-down text-sky-400"></i>' data-en='<i class="fa-solid fa-camera text-sky-400"></i> 4 photos <i class="badge-fold fa-solid fa-chevron-down text-sky-400"></i>'><i class="fa-solid fa-camera text-sky-400"></i> 4 photos <i class="badge-fold fa-solid fa-chevron-down text-sky-400"></i></div>
                                 <div class="exp-gallery" data-exp="4">
                                     <div class="exp-gallery-inner">
                                         <div class="exp-gallery-hd flex items-center gap-2">
@@ -1206,7 +1272,7 @@
                                     <li data-fr="Optimisation des maillages dynamiques 3D et accélération calculatoire pour garantir un traitement fluide à 60 FPS." data-en="Optimization of dynamic 3D meshes and computational acceleration to guarantee smooth 60 FPS execution.">Optimisation des maillages dynamiques 3D et accélération calculatoire pour garantir un traitement fluide à 60 FPS.</li>
                                 </ul>
 
-                                <div class="exp-gallery-badge no-print inline-flex w-fit items-center gap-1" data-fr='<i class="fa-solid fa-photo-film text-sky-400"></i> 4 media' data-en='<i class="fa-solid fa-photo-film text-sky-400"></i> 4 media'>4 media</div>
+                                <div class="exp-gallery-badge no-print inline-flex w-fit items-center gap-1" data-fr='<i class="fa-solid fa-photo-film text-sky-400"></i> 4 media <i class="badge-fold fa-solid fa-chevron-down text-sky-400"></i>' data-en='<i class="fa-solid fa-photo-film text-sky-400"></i> 4 media <i class="badge-fold fa-solid fa-chevron-down text-sky-400"></i>'><i class="fa-solid fa-photo-film text-sky-400"></i> 4 media <i class="badge-fold fa-solid fa-chevron-down text-sky-400"></i></div>
                                 <div class="exp-gallery" data-exp="5">
                                     <div class="exp-gallery-inner">
                                         <div class="exp-gallery-hd flex items-center gap-2">
@@ -1253,7 +1319,7 @@
                                     <li data-fr="Chef de projet R&D des simulateurs <strong>SpineLive</strong> (chirurgie du rachis) et <strong>Virtual Alti-Phob</strong> (réalité virtuelle thérapeutique)." data-en="R&D project manager for <strong>SpineLive</strong> (spine surgery) and <strong>Virtual Alti-Phob</strong> (therapeutic VR) simulators.">Chef de projet R&D des simulateurs <strong>SpineLive</strong> (chirurgie du rachis) et <strong>Virtual Alti-Phob</strong> (réalité virtuelle thérapeutique).</li>
                                 </ul>
 
-                                <div class="exp-gallery-badge no-print inline-flex w-fit items-center gap-1" data-fr='<i class="fa-solid fa-camera text-sky-400"></i> 4 photos' data-en='<i class="fa-solid fa-camera text-sky-400"></i> 4 photos'>4 photos</div>
+                                <div class="exp-gallery-badge no-print inline-flex w-fit items-center gap-1" data-fr='<i class="fa-solid fa-camera text-sky-400"></i> 4 photos <i class="badge-fold fa-solid fa-chevron-down text-sky-400"></i>' data-en='<i class="fa-solid fa-camera text-sky-400"></i> 4 photos <i class="badge-fold fa-solid fa-chevron-down text-sky-400"></i>'><i class="fa-solid fa-camera text-sky-400"></i> 4 photos <i class="badge-fold fa-solid fa-chevron-down text-sky-400"></i></div>
                                 <div class="exp-gallery" data-exp="6">
                                     <div class="exp-gallery-inner">
                                         <div class="exp-gallery-hd flex items-center gap-2">
@@ -1313,7 +1379,7 @@
                                     <span class="text-[10px] px-2 py-0.5 rounded bg-sky-500/10 text-sky-400 border border-sky-500/20 font-mono">SynthData 3D</span>
                                     <span class="text-[10px] px-2 py-0.5 rounded bg-sky-500/10 text-sky-400 border border-sky-500/20 font-mono">Python</span>
                                 </div>
-                                <div class="exp-gallery-badge no-print inline-flex w-fit items-center gap-1" data-fr='<i class="fa-solid fa-photo-film text-sky-400"></i> 4 media' data-en='<i class="fa-solid fa-photo-film text-sky-400"></i> 4 media'>4 media</div>
+                                <div class="exp-gallery-badge no-print inline-flex w-fit items-center gap-1" data-fr='<i class="fa-solid fa-photo-film text-sky-400"></i> 4 media <i class="badge-fold fa-solid fa-chevron-down text-sky-400"></i>' data-en='<i class="fa-solid fa-photo-film text-sky-400"></i> 4 media <i class="badge-fold fa-solid fa-chevron-down text-sky-400"></i>'><i class="fa-solid fa-photo-film text-sky-400"></i> 4 media <i class="badge-fold fa-solid fa-chevron-down text-sky-400"></i></div>
                                 <div class="exp-gallery" data-slug="dartnet">
                                     <div class="exp-gallery-inner">
                                         <div class="exp-gallery-hd flex items-center gap-2">
@@ -1361,7 +1427,7 @@
                                     <span class="text-[10px] px-2 py-0.5 rounded bg-sky-500/10 text-sky-400 border border-sky-500/20 font-mono">C#</span>
                                     <span class="text-[10px] px-2 py-0.5 rounded bg-sky-500/10 text-sky-400 border border-sky-500/20 font-mono">VR / Oculus</span>
                                 </div>
-                                <div class="exp-gallery-badge no-print inline-flex w-fit items-center gap-1" data-fr='<i class="fa-solid fa-photo-film text-sky-400"></i> 4 media' data-en='<i class="fa-solid fa-photo-film text-sky-400"></i> 4 media'>4 media</div>
+                                <div class="exp-gallery-badge no-print inline-flex w-fit items-center gap-1" data-fr='<i class="fa-solid fa-photo-film text-sky-400"></i> 4 media <i class="badge-fold fa-solid fa-chevron-down text-sky-400"></i>' data-en='<i class="fa-solid fa-photo-film text-sky-400"></i> 4 media <i class="badge-fold fa-solid fa-chevron-down text-sky-400"></i>'><i class="fa-solid fa-photo-film text-sky-400"></i> 4 media <i class="badge-fold fa-solid fa-chevron-down text-sky-400"></i></div>
                                 <div class="exp-gallery" data-slug="unit3d-pinball">
                                     <div class="exp-gallery-inner">
                                         <div class="exp-gallery-hd flex items-center gap-2">
@@ -1935,11 +2001,17 @@
         }
 
         function toggleGallery(gallery) {
+            /* the chevron on the corner badge follows the fold */
+            const host = gallery.closest('.data-card');
+            const badge = host ? host.querySelector('.exp-gallery-badge') : null;
+
             if (gallery.classList.contains('open')) {
                 gallery.classList.remove('open');
+                if (badge) badge.classList.remove('fold-open');
                 showToast(currentLang === 'fr' ? "Galerie closed" : "Gallery closed");
             } else {
                 gallery.classList.add('open');
+                if (badge) badge.classList.add('fold-open');
                 showToast(currentLang === 'fr' ? "Galerie opened" : "Gallery opened");
             }
         }
