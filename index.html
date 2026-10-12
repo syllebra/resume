@@ -54,6 +54,13 @@
             box-shadow: 0 10px 30px -10px rgba(14, 165, 233, 0.18);
         }
 
+        /* Justified bullet text: hyphenate so the lines have no big gaps
+           (lang is set on <html> by toggleLanguage, so the right dictionary is used) */
+        .text-justify {
+            -webkit-hyphens: auto;
+            hyphens: auto;
+        }
+
         .skill-badge {
             transition: all 0.2s ease;
             cursor: pointer;
@@ -291,6 +298,12 @@
             height: 100%;
             object-fit: cover;
             object-position: center;
+        }
+
+        /* a portrait photo in a landscape thumb: crop on the top, where the
+           subject is (monitor, tools, headset) - not on the legs */
+        .exp-thumb-img.thumb-tall {
+            object-position: 50% 22%;
         }
 
         .exp-caption {
@@ -627,6 +640,18 @@
             border: 0;
         }
 
+        .exp-lightbox-video video {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: #020617;
+        }
+
+        body.light-mode .exp-lightbox-video video {
+            background: #0f172a;
+        }
+
         body.light-mode .exp-lightbox-video {
             box-shadow: 0 24px 60px -15px rgba(15, 23, 42, 0.3);
         }
@@ -898,7 +923,7 @@
                     <!-- Photo du candidat -->
                     <div class="relative shrink-0">
                         <div class="photo-frame w-28 h-28 sm:w-32 sm:h-32 rounded-2xl overflow-hidden border-2 border-sky-400/50 shadow-xl shadow-sky-950/50 bg-slate-800">
-                            <img id="profile-img" src="csy.png" alt="Dr Cédric SYLLEBRANQUE" class="w-full h-full object-cover object-center" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'w-full h-full flex items-center justify-center bg-slate-800 text-sky-400 font-bold text-3xl\'>CS</div>';">
+                            <img id="profile-img" src="media/csy.png" alt="Dr Cédric SYLLEBRANQUE" class="w-full h-full object-cover object-center" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'w-full h-full flex items-center justify-center bg-slate-800 text-sky-400 font-bold text-3xl\'>CS</div>';">
                         </div>
                         <div class="absolute -bottom-2 -right-2 px-2.5 py-0.5 rounded-md bg-sky-500 text-slate-950 font-black text-[10px] uppercase tracking-wider shadow">
                             PhD
@@ -1084,7 +1109,7 @@
                                     </span>
                                 </div>
                                 <div class="text-xs font-semibold text-slate-400" data-fr="DSI (Direction des Systèmes d'Information)" data-en="IT Department (DSI)">DSI (Direction des Systèmes d'Information)</div>
-                                <ul class="list-disc list-inside text-xs text-slate-300 space-y-1 pt-1 leading-relaxed">
+                                <ul class="list-disc list-inside text-xs text-slate-300 space-y-1 pt-1 leading-relaxed text-justify">
                                     <li data-fr="Pilotage stratégique et opérationnel des projets <strong>Data</strong>, <strong>Business Intelligence (BI)</strong> et <strong>Gouvernance stratégique des données</strong>." data-en="Strategic and operational management of <strong>Data</strong>, <strong>Business Intelligence (BI)</strong>, and <strong>Data Governance</strong> projects.">Pilotage stratégique et opérationnel des projets <strong>Data</strong>, <strong>Business Intelligence (BI)</strong> et <strong>Gouvernance stratégique des données</strong>.</li>
                                     <li data-fr="Structuration des pipelines d'intégration de données (ETL/ELT), modélisation des entrepôts décisionnels et création de <strong>tableaux de bord analytiques</strong> métiers." data-en="Designing data integration pipelines (ETL/ELT), data warehouse modeling, and building business <strong>analytics dashboards</strong>.">Structuration des pipelines d'intégration de données (ETL/ELT), modélisation des entrepôts décisionnels et création de <strong>tableaux de bord analytiques</strong> métiers.</li>
                                     <li data-fr="Cadrage technique et accompagnement des directions dans la valorisation algorithmique et l'intégration de briques d'<strong>Intelligence Artificielle</strong>." data-en="Technical scoping and department support for algorithmic valuation and integration of <strong>Artificial Intelligence</strong> modules.">Cadrage technique et accompagnement des directions dans la valorisation algorithmique et l'intégration de briques d'<strong>Intelligence Artificielle</strong>.</li>
@@ -1096,7 +1121,6 @@
                                         <div class="exp-gallery-hd flex items-center gap-2">
                                             <i class="fa-solid fa-images text-sky-400"></i>
                                             <span class="text-white text-[11px] font-bold uppercase tracking-wide" data-fr="Galerie" data-en="Gallery">Galerie</span>
-                                            <span class="text-[10px] text-slate-400" data-fr="cliq. on a photo to enlarge" data-en="click a photo to enlarge">cliq. on a photo to enlarge</span>
                                         </div>
                                         <div class="exp-gallery-grid">
                                             <div class="exp-thumb">
@@ -1129,7 +1153,7 @@
                                     </span>
                                 </div>
                                 <div class="text-xs font-semibold text-slate-400" data-fr="Consulting & R&D Indépendant" data-en="Independent Consulting & R&D">Consulting & R&D Indépendant</div>
-                                <ul class="list-disc list-inside text-xs text-slate-300 space-y-1 pt-1 leading-relaxed">
+                                <ul class="list-disc list-inside text-xs text-slate-300 space-y-1 pt-1 leading-relaxed text-justify">
                                     <li data-fr="Audit, conseil et développement de solutions sur mesure en <strong>Intelligence Artificielle</strong>, <strong>Computer Vision</strong> et <strong>Modélisation 3D</strong>." data-en="Audit, consulting, and custom solution development in <strong>Artificial Intelligence</strong>, <strong>Computer Vision</strong>, and <strong>3D Modeling</strong>.">Audit, conseil et développement de solutions sur mesure en <strong>Intelligence Artificielle</strong>, <strong>Computer Vision</strong> et <strong>Modélisation 3D</strong>.</li>
                                     <li data-fr="Conception de pipelines d'acquisition et de traitement d'images temps réel (<strong>OpenCV, PyTorch, YOLO</strong>)." data-en="Design of real-time image acquisition and processing pipelines (<strong>OpenCV, PyTorch, YOLO</strong>).">Conception de pipelines d'acquisition et de traitement d'images temps réel (<strong>OpenCV, PyTorch, YOLO</strong>).</li>
                                     <li data-fr="Génération automatisée de <strong>jeux de données synthétiques 3D</strong> pour le fine-tuning de modèles de vision en environnement contraint." data-en="Automated generation of <strong>3D synthetic datasets</strong> for fine-tuning computer vision models under constrained environments.">Génération automatisée de <strong>jeux de données synthétiques 3D</strong> pour le fine-tuning de modèles de vision en environnement contraint.</li>
@@ -1141,7 +1165,6 @@
                                         <div class="exp-gallery-hd flex items-center gap-2">
                                             <i class="fa-solid fa-images text-sky-400"></i>
                                             <span class="text-white text-[11px] font-bold uppercase tracking-wide" data-fr="Galerie" data-en="Gallery">Galerie</span>
-                                            <span class="text-[10px] text-slate-400" data-fr="cliq. on a photo to enlarge" data-en="click a photo to enlarge">cliq. on a photo to enlarge</span>
                                         </div>
                                         <div class="exp-gallery-grid">
                                             <div class="exp-thumb">
@@ -1174,9 +1197,9 @@
                                     </span>
                                 </div>
                                 <div class="text-xs font-semibold text-slate-400" data-fr="DSI" data-en="IT Department (DSI)">DSI</div>
-                                <ul class="list-disc list-inside text-xs text-slate-300 space-y-1 pt-1 leading-relaxed">
+                                <ul class="list-disc list-inside text-xs text-slate-300 space-y-1 pt-1 leading-relaxed text-justify">
+                                    <li data-fr="Mise en place de architectures <strong>MLOps & CI/CD</strong> (Docker, GitLab CI) pour l'automatisation du déploiement des applications de l'administration de la Polynésie Française." data-en="Implementation of <strong>MLOps & CI/CD</strong> architectures (Docker, GitLab CI) for automated deployment of French Polynesia administration applications.">Mise en place de architectures <strong>MLOps & CI/CD</strong> (Docker, GitLab CI) pour l'automatisation du déploiement des applications de l'administration de la Polynésie Française.</li>
                                     <li data-fr="Conception et entraînement de modèles de <strong>Deep Learning (OCR & NLP)</strong> pour l'analyse, le tri et l'indexation automatique de documents administratifs." data-en="Design and training of <strong>Deep Learning models (OCR & NLP)</strong> for automated processing, sorting, and indexing of administrative documents.">Conception et entraînement de modèles de <strong>Deep Learning (OCR & NLP)</strong> pour l'analyse, le tri et l'indexation automatique de documents administratifs.</li>
-                                    <li data-fr="Mise en place de architectures <strong>MLOps & CI/CD</strong> (Docker, GitLab CI) pour l'automatisation du déploiement des modèles d'<strong>Intelligence Artificielle</strong>." data-en="Implementation of <strong>MLOps & CI/CD</strong> architectures (Docker, GitLab CI) for automated deployment of <strong>Artificial Intelligence</strong> models.">Mise en place de architectures <strong>MLOps & CI/CD</strong> (Docker, GitLab CI) pour l'automatisation du déploiement des modèles d'<strong>Intelligence Artificielle</strong>.</li>
                                     <li data-fr="Supervision des environnements de production et intégration continue pour l'ensemble des services de la Polynésie Française." data-en="Supervision of production environments and continuous integration for all government services in French Polynesia.">Supervision des environnements de production et intégration continue pour l'ensemble des services de la Polynésie Française.</li>
                                 </ul>
 
@@ -1186,7 +1209,6 @@
                                         <div class="exp-gallery-hd flex items-center gap-2">
                                             <i class="fa-solid fa-images text-sky-400"></i>
                                             <span class="text-white text-[11px] font-bold uppercase tracking-wide" data-fr="Galerie" data-en="Gallery">Galerie</span>
-                                            <span class="text-[10px] text-slate-400" data-fr="cliq. on a media to enlarge / play" data-en="click a media to enlarge / play">cliq. on a media to enlarge / play</span>
                                         </div>
                                         <div class="exp-gallery-grid">
                                             <div class="exp-thumb exp-thumb-video" data-video="MPU2HistivI">
@@ -1219,38 +1241,44 @@
                                         Mars 2016 – Oct 2020
                                     </span>
                                 </div>
-                                <div class="text-xs font-semibold text-slate-400">Diota</div>
-                                <ul class="list-disc list-inside text-xs text-slate-300 space-y-1 pt-1 leading-relaxed">
+                                <div class="text-xs font-semibold text-slate-400" data-fr='Diota &#8594; <em>maintenant <a href="https://www.3ds.com/products/delmia/augmented-experience" target="_blank" rel="noopener" class="text-sky-400 hover:underline">Delmia</a> (Dassault Systems)</em>' data-en='Diota &#8594; <em>now <a href="https://www.3ds.com/products/delmia/augmented-experience" target="_blank" rel="noopener" class="text-sky-400 hover:underline">Delmia</a> (Dassault Systems)</em>'>Diota → <em>maintenant <a href="https://www.3ds.com/products/delmia/augmented-experience" target="_blank" rel="noopener" class="text-sky-400 hover:underline">Delmia</a> (Dassault Systems)</em></div>
+                                <ul class="list-disc list-inside text-xs text-slate-300 space-y-1 pt-1 leading-relaxed text-justify">
                                     <li data-fr="R&D avancée en <strong>Réalité Augmentée</strong> et <strong>Computer Vision</strong> pour le contrôle qualité et l'assistance à la fabrication industrielle." data-en="Advanced R&D in <strong>Augmented Reality</strong> and <strong>Computer Vision</strong> for industrial quality control and manufacturing assistance.">R&D avancée en <strong>Réalité Augmentée</strong> et <strong>Computer Vision</strong> pour le contrôle qualité et l'assistance à la fabrication industrielle.</li>
                                     <li data-fr="Développement d'algorithmes de <strong>calibrage projectif 2D/3D</strong> (systèmes caméra/vidéoprojecteur) et de recalage géométrique." data-en="Development of <strong>2D/3D projective calibration algorithms</strong> (camera-projector systems) and geometric registration.">Développement d'algorithmes de <strong>calibrage projectif 2D/3D</strong> (systèmes caméra/vidéoprojecteur) et de recalage géométrique.</li>
                                     <li data-fr="Traitement et segmentation de <strong>nuages de points 3D (PCL)</strong> pour la détection de formes géométriques complexes et le suivi sur casques <strong>HoloLens</strong>." data-en="Processing and segmentation of <strong>3D point clouds (PCL)</strong> for complex geometric shape detection and tracking on <strong>HoloLens</strong> headsets.">Traitement et segmentation de <strong>nuages de points 3D (PCL)</strong> pour la détection de formes géométriques complexes et le suivi sur casques <strong>HoloLens</strong>.</li>
                                     <li data-fr="Conception de moteurs d'<strong>OCR Deep Learning (C++ / OpenCV)</strong> optimisés pour la lecture haute vitesse de marquages industriels en conditions sévères." data-en="Design of <strong>Deep Learning OCR engines (C++ / OpenCV)</strong> optimized for high-speed industrial marking reading under harsh conditions.">Conception de moteurs d'<strong>OCR Deep Learning (C++ / OpenCV)</strong> optimisés pour la lecture haute vitesse de marquages industriels en conditions sévères.</li>
                                 </ul>
 
-                                <div class="exp-gallery-badge no-print inline-flex w-fit items-center gap-1" data-fr='<i class="fa-solid fa-camera text-sky-400"></i> 4 photos <i class="badge-fold fa-solid fa-chevron-down text-sky-400"></i>' data-en='<i class="fa-solid fa-camera text-sky-400"></i> 4 photos <i class="badge-fold fa-solid fa-chevron-down text-sky-400"></i>'><i class="fa-solid fa-camera text-sky-400"></i> 4 photos <i class="badge-fold fa-solid fa-chevron-down text-sky-400"></i></div>
+                                <div class="exp-gallery-badge no-print inline-flex w-fit items-center gap-1" data-fr='<i class="fa-solid fa-photo-film text-sky-400"></i> 5 media <i class="badge-fold fa-solid fa-chevron-down text-sky-400"></i>' data-en='<i class="fa-solid fa-photo-film text-sky-400"></i> 5 media <i class="badge-fold fa-solid fa-chevron-down text-sky-400"></i>'><i class="fa-solid fa-photo-film text-sky-400"></i> 5 media <i class="badge-fold fa-solid fa-chevron-down text-sky-400"></i></div>
                                 <div class="exp-gallery" data-exp="4">
                                     <div class="exp-gallery-inner">
                                         <div class="exp-gallery-hd flex items-center gap-2">
                                             <i class="fa-solid fa-images text-sky-400"></i>
                                             <span class="text-white text-[11px] font-bold uppercase tracking-wide" data-fr="Galerie" data-en="Gallery">Galerie</span>
-                                            <span class="text-[10px] text-slate-400" data-fr="cliq. on a photo to enlarge" data-en="click a photo to enlarge">cliq. on a photo to enlarge</span>
                                         </div>
                                         <div class="exp-gallery-grid">
-                                            <div class="exp-thumb">
-                                                <img class="exp-thumb-img" src="img/experience-4-1.svg" alt="AR industrial HoloLens" loading="lazy" decoding="async">
-                                                <span class="exp-caption" data-fr="AR industrial HoloLens" data-en="AR industrial HoloLens">AR industrial HoloLens</span>
+                                            <div class="exp-thumb exp-thumb-video" data-video="4kpPUCYHCWo">
+                                                <img class="exp-thumb-img" src="https://i.ytimg.com/vi/4kpPUCYHCWo/hqdefault.jpg" alt="DELMIA Augmented Experience" loading="lazy" decoding="async">
+                                                <span class="exp-caption" data-fr="DELMIA Augmented Experience (AR industrial)" data-en="DELMIA Augmented Experience (AR industrial)">DELMIA Augmented Experience (AR industrial)</span>
+                                                <span class="exp-thumb-play"><i class="fa-solid fa-play text-white"></i></span>
+                                            </div>
+                                            <div class="exp-thumb exp-thumb-video" data-video="T2hgTyqHnV0">
+                                                <img class="exp-thumb-img" src="https://i.ytimg.com/vi/T2hgTyqHnV0/hqdefault.jpg" alt="Assembly guidance projection (AR)" loading="lazy" decoding="async">
+                                                <span class="exp-caption" data-fr="Assembly guidance projection (AR)" data-en="Assembly guidance projection (AR)">Assembly guidance projection (AR)</span>
+                                                <span class="exp-thumb-play"><i class="fa-solid fa-play text-white"></i></span>
+                                            </div>
+                                            <div class="exp-thumb exp-thumb-video" data-local-video="media/diota/PCL/poc-point-cloud.web-720p.mp4">
+                                                <img class="exp-thumb-img" src="media/diota/PCL/poc-point-cloud.jpg" alt="Point cloud projection (DiotaPlayer)" loading="lazy" decoding="async">
+                                                <span class="exp-caption" data-fr="Projection du cloud points 3D sur a part (DiotaPlayer)" data-en="3D point cloud projection on a real part (DiotaPlayer)">Projection du cloud points 3D sur a part (DiotaPlayer)</span>
+                                                <span class="exp-thumb-play"><i class="fa-solid fa-play text-white"></i></span>
                                             </div>
                                             <div class="exp-thumb">
-                                                <img class="exp-thumb-img" src="img/experience-4-2.svg" alt="Segmentation nuages 3D PCL" loading="lazy" decoding="async">
-                                                <span class="exp-caption" data-fr="Segmentation nuages 3D PCL" data-en="Segmentation nuages 3D PCL">Segmentation nuages 3D PCL</span>
+                                                <img class="exp-thumb-img" src="media/diota/Hololens/CapturedImage146.4394_n.jpg" alt="Registration AR sur a part (Piston 05)" loading="lazy" decoding="async">
+                                                <span class="exp-caption" data-fr="Registration AR sur a part (Piston 05)" data-en="AR registration on a real part (Piston 05)">Registration AR sur a part (Piston 05)</span>
                                             </div>
                                             <div class="exp-thumb">
-                                                <img class="exp-thumb-img" src="img/experience-4-3.svg" alt="OCR industrial high speed" loading="lazy" decoding="async">
-                                                <span class="exp-caption" data-fr="OCR industrial high speed" data-en="OCR industrial high speed">OCR industrial high speed</span>
-                                            </div>
-                                            <div class="exp-thumb">
-                                                <img class="exp-thumb-img" src="img/experience-4-4.svg" alt="Calibrage camera / videoprojector" loading="lazy" decoding="async">
-                                                <span class="exp-caption" data-fr="Calibrage camera / videoprojector" data-en="Calibrage camera / videoprojector">Calibrage camera / videoprojector</span>
+                                                <img class="exp-thumb-img" src="media/diota/vision/capture_demo.png" alt="Generator du données synthétiques pour OCR" loading="lazy" decoding="async">
+                                                <span class="exp-caption" data-fr="Generator du données synthétiques pour OCR" data-en="Synthetic data generator for OCR">Generator du données synthétiques pour OCR</span>
                                             </div>
                                         </div>
                                     </div>
@@ -1266,7 +1294,7 @@
                                     </span>
                                 </div>
                                 <div class="text-xs font-semibold text-slate-400">Lectra</div>
-                                <ul class="list-disc list-inside text-xs text-slate-300 space-y-1 pt-1 leading-relaxed">
+                                <ul class="list-disc list-inside text-xs text-slate-300 space-y-1 pt-1 leading-relaxed text-justify">
                                     <li data-fr="Développement <strong>C++</strong> du <strong>moteur de simulation 3D temps réel</strong> pour la modélisation physique du drapé de tissus sur mannequins virtuels." data-en="<strong>C++</strong> development of a <strong>real-time 3D simulation engine</strong> for physical fabric draping on virtual mannequins.">Développement <strong>C++</strong> du <strong>moteur de simulation 3D temps réel</strong> pour la modélisation physique du drapé de tissus sur mannequins virtuels.</li>
                                     <li data-fr="Implémentation d'algorithmes de détection de <strong>collisions 3D complexes</strong>, d'intégration mécanique et de rendu graphique <strong>OpenGL</strong>." data-en="Implementation of complex <strong>3D collision detection</strong>, mechanical integration algorithms, and <strong>OpenGL</strong> graphic rendering.">Implémentation d'algorithmes de détection de <strong>collisions 3D complexes</strong>, d'intégration mécanique et de rendu graphique <strong>OpenGL</strong>.</li>
                                     <li data-fr="Optimisation des maillages dynamiques 3D et accélération calculatoire pour garantir un traitement fluide à 60 FPS." data-en="Optimization of dynamic 3D meshes and computational acceleration to guarantee smooth 60 FPS execution.">Optimisation des maillages dynamiques 3D et accélération calculatoire pour garantir un traitement fluide à 60 FPS.</li>
@@ -1278,7 +1306,6 @@
                                         <div class="exp-gallery-hd flex items-center gap-2">
                                             <i class="fa-solid fa-images text-sky-400"></i>
                                             <span class="text-white text-[11px] font-bold uppercase tracking-wide" data-fr="Galerie" data-en="Gallery">Galerie</span>
-                                            <span class="text-[10px] text-slate-400" data-fr="cliq. on a media to enlarge / play" data-en="click a media to enlarge / play">cliq. on a media to enlarge / play</span>
                                         </div>
                                         <div class="exp-gallery-grid">
                                             <div class="exp-thumb exp-thumb-video" data-video="yOJIRArZeig">
@@ -1311,26 +1338,35 @@
                                         Oct 2007 – Avr 2013
                                     </span>
                                 </div>
-                                <div class="text-xs font-semibold text-slate-400">DIDHAPTIC SAS</div>
-                                <ul class="list-disc list-inside text-xs text-slate-300 space-y-1 pt-1 leading-relaxed">
+                                <div class="text-xs font-semibold text-slate-400" data-fr='Didhaptic SAS &#8594; <em>maintenant <a href="https://virteasy.com/" target="_blank" rel="noopener" class="text-sky-400 hover:underline">HRV</a></em>' data-en='Didhaptic SAS &#8594; <em>now <a href="https://virteasy.com/" target="_blank" rel="noopener" class="text-sky-400 hover:underline">HRV</a></em>'>Didhaptic SAS → <em>maintenant <a href="https://virteasy.com/" target="_blank" rel="noopener" class="text-sky-400 hover:underline">HRV</a></em></div>
+                                <ul class="list-disc list-inside text-xs text-slate-300 space-y-1 pt-1 leading-relaxed text-justify">
                                     <li data-fr="Responsable R&D du réalisme sensoriel et visuel du <strong>simulateur chirurgical 3D VirTeaSy</strong> (implantologie et chirurgie dentaire)." data-en="R&D lead for sensory and visual realism in the <strong>VirTeaSy 3D surgical simulator</strong> (dental implantology and surgery).">Responsable R&D du réalisme sensoriel et visuel du <strong>simulateur chirurgical 3D VirTeaSy</strong> (implantologie et chirurgie dentaire).</li>
                                     <li data-fr="Conception du moteur de <strong>rendu volumique GPU (Raycasting GLSL)</strong> pour la visualisation 3D en coupe d'examens scanner (DICOM)." data-en="Design of GPU <strong>volume rendering engine (GLSL Raycasting)</strong> for 3D cross-sectional CT scan (DICOM) visualization.">Conception du moteur de <strong>rendu volumique GPU (Raycasting GLSL)</strong> pour la visualisation 3D en coupe d'examens scanner (DICOM).</li>
                                     <li data-fr="Développement du moteur haptique à <strong>retour d'effort 6-DOF</strong> pour la simulation haptique haute fidélité des tissus osseux et des outils chirurgicaux." data-en="Development of a <strong>6-DOF force-feedback haptic engine</strong> for high-fidelity tactile simulation of bone tissues and surgical tools.">Développement du moteur haptique à <strong>retour d'effort 6-DOF</strong> pour la simulation haptique haute fidélité des tissus osseux et des outils chirurgicaux.</li>
                                     <li data-fr="Chef de projet R&D des simulateurs <strong>SpineLive</strong> (chirurgie du rachis) et <strong>Virtual Alti-Phob</strong> (réalité virtuelle thérapeutique)." data-en="R&D project manager for <strong>SpineLive</strong> (spine surgery) and <strong>Virtual Alti-Phob</strong> (therapeutic VR) simulators.">Chef de projet R&D des simulateurs <strong>SpineLive</strong> (chirurgie du rachis) et <strong>Virtual Alti-Phob</strong> (réalité virtuelle thérapeutique).</li>
                                 </ul>
 
-                                <div class="exp-gallery-badge no-print inline-flex w-fit items-center gap-1" data-fr='<i class="fa-solid fa-camera text-sky-400"></i> 4 photos <i class="badge-fold fa-solid fa-chevron-down text-sky-400"></i>' data-en='<i class="fa-solid fa-camera text-sky-400"></i> 4 photos <i class="badge-fold fa-solid fa-chevron-down text-sky-400"></i>'><i class="fa-solid fa-camera text-sky-400"></i> 4 photos <i class="badge-fold fa-solid fa-chevron-down text-sky-400"></i></div>
+                                <div class="exp-gallery-badge no-print inline-flex w-fit items-center gap-1" data-fr='<i class="fa-solid fa-photo-film text-sky-400"></i> 6 media <i class="badge-fold fa-solid fa-chevron-down text-sky-400"></i>' data-en='<i class="fa-solid fa-photo-film text-sky-400"></i> 6 media <i class="badge-fold fa-solid fa-chevron-down text-sky-400"></i>'><i class="fa-solid fa-photo-film text-sky-400"></i> 6 media <i class="badge-fold fa-solid fa-chevron-down text-sky-400"></i></div>
                                 <div class="exp-gallery" data-exp="6">
                                     <div class="exp-gallery-inner">
                                         <div class="exp-gallery-hd flex items-center gap-2">
                                             <i class="fa-solid fa-images text-sky-400"></i>
                                             <span class="text-white text-[11px] font-bold uppercase tracking-wide" data-fr="Galerie" data-en="Gallery">Galerie</span>
-                                            <span class="text-[10px] text-slate-400" data-fr="cliq. on a photo to enlarge" data-en="click a photo to enlarge">cliq. on a photo to enlarge</span>
                                         </div>
                                         <div class="exp-gallery-grid">
+                                            <div class="exp-thumb exp-thumb-video" data-video="fkpIsL2WUYQ">
+                                                <img class="exp-thumb-img" src="https://i.ytimg.com/vi/fkpIsL2WUYQ/hqdefault.jpg" alt="VirTeaSy dental simulator – 3D presentation" loading="lazy" decoding="async">
+                                                <span class="exp-caption" data-fr="VirTeaSy dental simulator – 3D presentation" data-en="VirTeaSy dental simulator – 3D presentation">VirTeaSy dental simulator – 3D presentation</span>
+                                                <span class="exp-thumb-play"><i class="fa-solid fa-play text-white"></i></span>
+                                            </div>
+                                            <div class="exp-thumb exp-thumb-video" data-video="DBjzLW7kTGQ">
+                                                <img class="exp-thumb-img" src="https://i.ytimg.com/vi/DBjzLW7kTGQ/hqdefault.jpg" alt="VirTeaSy V2 / VR – university training simulator" loading="lazy" decoding="async">
+                                                <span class="exp-caption" data-fr="VirTeaSy V2 / VR – university training simulator" data-en="VirTeaSy V2 / VR – university training simulator">VirTeaSy V2 / VR – university training simulator</span>
+                                                <span class="exp-thumb-play"><i class="fa-solid fa-play text-white"></i></span>
+                                            </div>
                                             <div class="exp-thumb">
-                                                <img class="exp-thumb-img" src="img/experience-6-1.svg" alt="Simulator VirTeaSy 3D" loading="lazy" decoding="async">
-                                                <span class="exp-caption" data-fr="Simulator VirTeaSy 3D" data-en="Simulator VirTeaSy 3D">Simulator VirTeaSy 3D</span>
+                                                <img class="exp-thumb-img thumb-tall" src="media/didhaptic/virteasy1.jpg" alt="VirTeaSy dental simulator – haptic 6-DOF" loading="lazy" decoding="async">
+                                                <span class="exp-caption" data-fr="VirTeaSy dental simulator – haptic 6-DOF" data-en="VirTeaSy dental simulator – 6-DOF haptics">VirTeaSy dental simulator – 6-DOF haptics</span>
                                             </div>
                                             <div class="exp-thumb">
                                                 <img class="exp-thumb-img" src="img/experience-6-2.svg" alt="Rendu volumique GPU DICOM" loading="lazy" decoding="async">
@@ -1385,7 +1421,6 @@
                                         <div class="exp-gallery-hd flex items-center gap-2">
                                             <i class="fa-solid fa-photo-film text-sky-400"></i>
                                             <span class="text-white text-[11px] font-bold uppercase tracking-wide" data-fr="Galerie" data-en="Gallery">Galerie</span>
-                                            <span class="text-[10px] text-slate-400" data-fr="cliq. to enlarge / play" data-en="click to enlarge / play">cliq. to enlarge / play</span>
                                         </div>
                                         <div class="exp-gallery-grid">
                                             <div class="exp-thumb">
@@ -1427,31 +1462,43 @@
                                     <span class="text-[10px] px-2 py-0.5 rounded bg-sky-500/10 text-sky-400 border border-sky-500/20 font-mono">C#</span>
                                     <span class="text-[10px] px-2 py-0.5 rounded bg-sky-500/10 text-sky-400 border border-sky-500/20 font-mono">VR / Oculus</span>
                                 </div>
-                                <div class="exp-gallery-badge no-print inline-flex w-fit items-center gap-1" data-fr='<i class="fa-solid fa-photo-film text-sky-400"></i> 4 media <i class="badge-fold fa-solid fa-chevron-down text-sky-400"></i>' data-en='<i class="fa-solid fa-photo-film text-sky-400"></i> 4 media <i class="badge-fold fa-solid fa-chevron-down text-sky-400"></i>'><i class="fa-solid fa-photo-film text-sky-400"></i> 4 media <i class="badge-fold fa-solid fa-chevron-down text-sky-400"></i></div>
+                                <div class="exp-gallery-badge no-print inline-flex w-fit items-center gap-1" data-fr='<i class="fa-solid fa-photo-film text-sky-400"></i> 6 media <i class="badge-fold fa-solid fa-chevron-down text-sky-400"></i>' data-en='<i class="fa-solid fa-photo-film text-sky-400"></i> 6 media <i class="badge-fold fa-solid fa-chevron-down text-sky-400"></i>'><i class="fa-solid fa-photo-film text-sky-400"></i> 6 media <i class="badge-fold fa-solid fa-chevron-down text-sky-400"></i></div>
                                 <div class="exp-gallery" data-slug="unit3d-pinball">
                                     <div class="exp-gallery-inner">
                                         <div class="exp-gallery-hd flex items-center gap-2">
                                             <i class="fa-solid fa-photo-film text-sky-400"></i>
                                             <span class="text-white text-[11px] font-bold uppercase tracking-wide" data-fr="Galerie" data-en="Gallery">Galerie</span>
-                                            <span class="text-[10px] text-slate-400" data-fr="cliq. to enlarge / play" data-en="click to enlarge / play">cliq. to enlarge / play</span>
                                         </div>
                                         <div class="exp-gallery-grid">
-                                            <div class="exp-thumb">
-                                                <img class="exp-thumb-img" src="img/unit3d-pinball-1.svg" alt="Unity3D pinball physics" loading="lazy" decoding="async">
-                                                <span class="exp-caption" data-fr="Unity3D pinball physics" data-en="Unity3D pinball physics">Unity3D pinball physics</span>
-                                            </div>
-                                            <div class="exp-thumb exp-thumb-video" data-video="0gzakhQgptI">
-                                                <img class="exp-thumb-img" src="https://i.ytimg.com/vi/0gzakhQgptI/hqdefault.jpg" alt="Unity3D pinball build walkthrough" loading="lazy" decoding="async">
-                                                <span class="exp-caption" data-fr="Unity3D pinball build walkthrough" data-en="Unity3D pinball build walkthrough">Unity3D pinball build walkthrough</span>
+                                            <div class="exp-thumb exp-thumb-video" data-video="EUXSW-skah0">
+                                                <img class="exp-thumb-img" src="https://i.ytimg.com/vi/EUXSW-skah0/hqdefault.jpg" alt="HYPERSPIN - Unit3D Pinball | 14 Tables" loading="lazy" decoding="async">
+                                                <span class="exp-caption" data-fr="HYPERSPIN - Unit3D Pinball | 14 Tables" data-en="HYPERSPIN - Unit3D Pinball | 14 Tables">HYPERSPIN - Unit3D Pinball | 14 Tables</span>
                                                 <span class="exp-thumb-play"><i class="fa-solid fa-play text-white"></i></span>
                                             </div>
-                                            <div class="exp-thumb">
-                                                <img class="exp-thumb-img" src="img/unit3d-pinball-2.svg" alt="VR capture &amp; tracking" loading="lazy" decoding="async">
-                                                <span class="exp-caption" data-fr="VR capture &amp; tracking" data-en="VR capture &amp; tracking">VR capture & tracking</span>
+                                            <div class="exp-thumb exp-thumb-video" data-video="s7O9w4IaBuk">
+                                                <img class="exp-thumb-img" src="https://i.ytimg.com/vi/s7O9w4IaBuk/hqdefault.jpg" alt="UP2 - Player Demo 01 (WIP)" loading="lazy" decoding="async">
+                                                <span class="exp-caption" data-fr="UP2 - Player Demo 01 (WIP)" data-en="UP2 - Player Demo 01 (WIP)">UP2 - Player Demo 01 (WIP)</span>
+                                                <span class="exp-thumb-play"><i class="fa-solid fa-play text-white"></i></span>
                                             </div>
-                                            <div class="exp-thumb">
-                                                <img class="exp-thumb-img" src="img/unit3d-pinball-3.svg" alt="Oculus Rift build" loading="lazy" decoding="async">
-                                                <span class="exp-caption" data-fr="Oculus Rift build" data-en="Oculus Rift build">Oculus Rift build</span>
+                                            <div class="exp-thumb exp-thumb-video" data-video="g5A35qQFSyc">
+                                                <img class="exp-thumb-img" src="https://i.ytimg.com/vi/g5A35qQFSyc/hqdefault.jpg" alt="Attack from Mars WIP - Unit3D Pinball BETA demo" loading="lazy" decoding="async">
+                                                <span class="exp-caption" data-fr="Attack from Mars WIP - Unit3D Pinball BETA demo" data-en="Attack from Mars WIP - Unit3D Pinball BETA demo">Attack from Mars WIP - Unit3D Pinball BETA demo</span>
+                                                <span class="exp-thumb-play"><i class="fa-solid fa-play text-white"></i></span>
+                                            </div>
+                                            <div class="exp-thumb exp-thumb-video" data-video="f1jcLrh9g_I">
+                                                <img class="exp-thumb-img" src="https://i.ytimg.com/vi/f1jcLrh9g_I/hqdefault.jpg" alt="Unit3D Pinball WIP: Bram Stocker's Dracula, mist magnet test" loading="lazy" decoding="async">
+                                                <span class="exp-caption" data-fr="Unit3D Pinball WIP: Bram Stocker's Dracula, mist magnet test" data-en="Unit3D Pinball WIP: Bram Stocker's Dracula, mist magnet test">Unit3D Pinball WIP: Bram Stocker's Dracula, mist magnet test</span>
+                                                <span class="exp-thumb-play"><i class="fa-solid fa-play text-white"></i></span>
+                                            </div>
+                                            <div class="exp-thumb exp-thumb-video" data-video="ve0u1LPJZcU">
+                                                <img class="exp-thumb-img" src="https://i.ytimg.com/vi/ve0u1LPJZcU/hqdefault.jpg" alt="Unit3D Pinball - DirectOutput support" loading="lazy" decoding="async">
+                                                <span class="exp-caption" data-fr="Unit3D Pinball - DirectOutput support" data-en="Unit3D Pinball - DirectOutput support">Unit3D Pinball - DirectOutput support</span>
+                                                <span class="exp-thumb-play"><i class="fa-solid fa-play text-white"></i></span>
+                                            </div>
+                                            <div class="exp-thumb exp-thumb-video" data-video="n9mOrh10wDQ">
+                                                <img class="exp-thumb-img" src="https://i.ytimg.com/vi/n9mOrh10wDQ/hqdefault.jpg" alt="Pinball Unit3D - Oculus Rift demo" loading="lazy" decoding="async">
+                                                <span class="exp-caption" data-fr="Pinball Unit3D - Oculus Rift demo" data-en="Pinball Unit3D - Oculus Rift demo">Pinball Unit3D - Oculus Rift demo</span>
+                                                <span class="exp-thumb-play"><i class="fa-solid fa-play text-white"></i></span>
                                             </div>
                                         </div>
                                     </div>
@@ -1948,7 +1995,33 @@
             const videoId = thumb.getAttribute('data-video');
             stage.innerHTML = '';
 
-            if (videoId) {
+            const localFile = thumb.getAttribute('data-local-video');
+
+            if (localFile) {
+                /* a file of the site itself, not a YouTube embed: a plain <video>
+                   on the stage, with the thumb as poster so nothing is fetched
+                   before the click */
+                const frame = document.createElement('div');
+                frame.className = 'exp-lightbox-video';
+                const player = document.createElement('video');
+                player.className = 'exp-lightbox-media';
+                player.setAttribute('controls', '');
+                player.setAttribute('playsinline', '');
+                player.setAttribute('preload', 'none');
+                player.poster = img ? img.getAttribute('data-full') || img.src : '';
+                const source = document.createElement('source');
+                source.src = localFile;
+                source.type = 'video/mp4';
+                player.appendChild(source);
+                player.addEventListener('click', () => {
+                    /* inside the player a click is play/pause, not a way out */
+                    if (player.paused) player.play(); else player.pause();
+                });
+                frame.appendChild(player);
+                stage.appendChild(frame);
+                player.play();
+            }
+            else if (videoId) {
                 const frame = document.createElement('div');
                 frame.className = 'exp-lightbox-video';
                 const player = document.createElement('iframe');
@@ -1989,6 +2062,11 @@
             stage.querySelectorAll('iframe').forEach((player) => {
                 player.src = 'about:blank';
             });
+            stage.querySelectorAll('video').forEach((player) => {
+                player.pause();
+                while (player.firstChild) player.removeChild(player.firstChild);
+                player.load();
+            });
             stage.innerHTML = '';
         }
 
@@ -2017,7 +2095,7 @@
         }
 
         document.body.addEventListener('click', (e) => {
-            if (e.target.matches('iframe')) return;
+            if (e.target.matches('iframe') || e.target.matches('video')) return;
 
             if (e.target.closest('.exp-lightbox')) {
                 closeLightbox();
