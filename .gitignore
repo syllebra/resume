@@ -1,0 +1,34 @@
+# .gitignore — resume repo
+
+# --- OS / editor junk ---
+.DS_Store
+Thumbs.db
+desktop.ini
+*~
+*.orig
+*.rej
+*.swp
+*.bak
+*.tmp
+
+# --- local dev / preview artifacts (never commit) ---
+# scratch copies of the served page, test screenshots, one-off crops
+_served.html
+resume_served.html
+*_served.html
+capture-*.png
+zoom-*.png
+_c.jpg
+_t.jpg
+dl/
+uploads/
+
+# --- python patches run from inside the repo ---
+__pycache__/
+*.pyc
+
+# --- media masters kept out of the repo (regenerable, huge) ---
+# originals live next to the repo in dartnet-masters/; the page only uses the
+# .web.jpg variants produced from them (see web-resume-dartnet-real-media.py)
+media/dartnet/render_0.jpg
+media/dartnet/generator_banner.png
