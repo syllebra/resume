@@ -720,6 +720,13 @@
                 text-align: left !important;
             }
 
+
+            /* Print: releasing the clip on the profile card is what avoids the
+               blank page Chrome inserts after it (see root cause above). */
+            #profil {
+                overflow: visible !important;
+            }
+
             #profil h1 {
                 font-size: 22px !important;
                 line-height: 1.1 !important;
