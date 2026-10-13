@@ -1888,17 +1888,37 @@
 
             activeSkillFilter = skillName;
 
+            // Highlight only the specific badge(s) corresponding to this skill
             badges.forEach(badge => {
-                if (badge.textContent.toLowerCase().includes(skillName.toLowerCase())) {
+                const attr = badge.getAttribute('onclick') || '';
+                if (attr.includes(`'${skillName}'`) || attr.includes(`"${skillName}"`)) {
                     badge.classList.add('active-filter');
                 } else {
                     badge.classList.remove('active-filter');
                 }
             });
 
+            // Match cards containing this skill in data-skills or text content
+            const target = skillName.toLowerCase();
             cards.forEach(card => {
-                const cardSkills = card.getAttribute('data-skills') || card.textContent;
-                if (cardSkills.toLowerCase().includes(skillName.toLowerCase())) {
+                const dataSkills = card.getAttribute('data-skills');
+                let matches = false;
+
+                if (dataSkills) {
+                    const skillList = dataSkills.split(',').map(s => s.trim().toLowerCase());
+                    matches = skillList.some(s => {
+                        if (s === target) return true;
+                        // Match discrete word boundary for multi-word skill tags
+                        const words = s.split(/[\s/()]+/);
+                        return words.includes(target);
+                    });
+                } else {
+                    // Fallback word token matching on card text
+                    const words = card.textContent.toLowerCase().split(/[\s,()/]+/);
+                    matches = words.includes(target);
+                }
+
+                if (matches) {
                     card.classList.add('highlight-card');
                 } else {
                     card.classList.remove('highlight-card');
